@@ -4,6 +4,7 @@ import com.coderdojo.zen.award.dto.AwardRequest;
 import com.coderdojo.zen.award.dto.AwardResponse;
 import com.coderdojo.zen.award.service.AwardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class AwardController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void createAward(@RequestBody AwardRequest awardRequest) {
         awardService.createAward(awardRequest);
     }

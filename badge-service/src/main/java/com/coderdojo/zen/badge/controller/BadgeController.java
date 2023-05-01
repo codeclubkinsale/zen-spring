@@ -42,5 +42,12 @@ public class BadgeController {
         badgeService.createBadge(badgeRequest);
     }
 
+    @GetMapping()
+    @RequestMapping("/{id}")
+    public BadgeResponse getBadgeById(@PathVariable Long id) {
+
+        return badgeService.getBadgeById(id);
+    }
+
 
 }

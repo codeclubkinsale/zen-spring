@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,22 @@ public class BadgeService {
 
         badgeRepository.save(badge);
     }
+    public BadgeResponse getBadgeById(Long id) {
+        Optional<Badge> optionalBadge = badgeRepository.findById(id);
+        if (optionalBadge.isPresent()) {
+            Badge badge = optionalBadge.get();
+            return BadgeResponse.builder()
+                    .id(badge.getId())
+                    .name(badge.getName())
+                    .description(badge.getDescription())
+                    .category(badge.getCategory())
+                    .imageURL(badge.getImageURl())
+                    .build();
+        } else {
+            return null;
+        }
+    }
+    
 
     private BadgeResponse mapToBadgeResponse(Badge badge) {
         return BadgeResponse.builder()

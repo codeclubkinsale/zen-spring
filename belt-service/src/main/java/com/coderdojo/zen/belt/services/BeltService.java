@@ -7,6 +7,7 @@ import com.coderdojo.zen.belt.repositories.BeltRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BeltService {
@@ -34,6 +35,20 @@ public class BeltService {
         List<Belt> belts = beltRepository.findAll();
 
         return belts.stream().map(this::mapToBeltResponse).toList();
+    }
+
+    public BeltResponse getBeltById(Long id) {
+        Optional<Belt> optionalBelt = beltRepository.findById(id);
+        if (optionalBelt.isPresent()) {
+            Belt belt = optionalBelt.get();
+            return BeltResponse.builder()
+                    .name(belt.getName())
+                    .description(belt.getDescription())
+                    .imageURL(belt.getImageURL())
+                    .build();
+        } else {
+            return null;
+        }
     }
 
     private BeltResponse mapToBeltResponse(Belt belt) {

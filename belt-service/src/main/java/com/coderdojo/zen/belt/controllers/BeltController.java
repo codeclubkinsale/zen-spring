@@ -45,4 +45,11 @@ public class BeltController {
     public void createBelt(@RequestBody BeltRequest beltRequest) {
         beltService.createBelt(beltRequest);
     }
+
+    @GetMapping()
+    @RequestMapping("/{id}")
+    public BeltResponse getBeltById(@PathVariable Long id) {
+
+        return beltService.getBeltById(id);
+    }
 }

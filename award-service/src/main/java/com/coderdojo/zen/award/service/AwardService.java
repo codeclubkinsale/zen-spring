@@ -2,11 +2,13 @@ package com.coderdojo.zen.award.service;
 
 import com.coderdojo.zen.award.dto.AwardRequest;
 import com.coderdojo.zen.award.dto.AwardResponse;
+import com.coderdojo.zen.award.dto.Badge;
 import com.coderdojo.zen.award.model.Award;
 import com.coderdojo.zen.award.model.AwardType;
 import com.coderdojo.zen.award.repository.AwardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @Service
 public class AwardService {
     private final AwardRepository awardRepository;
-
+    private final WebClient webClient;
     /**
      * The public name of a hero that is common knowledge
      */
@@ -31,7 +33,14 @@ public class AwardService {
                 .awardId(awardRequest.awardId())
                 .build();
 
-        awardRepository.save(award);
+        Badge badge = webClient.get()
+                .uri("http://localhost:8082/api/badges/1")
+                .retrieve()
+                .bodyToMono(Badge.class)
+                .block();
+        if (badge != null) {
+            awardRepository.save(award);
+        }
     }
 
     private AwardResponse mapToAwardResponse(Award award) {

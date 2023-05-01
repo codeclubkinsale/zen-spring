@@ -1,11 +1,17 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 spring:
-    datasource:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/zen
-      username: root
-      password: mysql
-    jpa:
-      hibernate:
-        ddl-auto: update
+  application:
+    name: award-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zen
+    username: root
+    password: mysql
+  jpa:
+    hibernate:
+      ddl-auto: update
 server:
-  port: 8081
+  port: 8083

@@ -27,4 +27,7 @@ public class Badge {
     @Column(name = "category")
     private Category category;
 
+    @Column(name = "image_url")
+    private String imageURl;
+
 }
