@@ -1,0 +1,14 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: authorization-server
+server:
+  port: 9000
+logging:
+  level:
+    org:
+      springframework:
+        security: trace

@@ -8,9 +8,10 @@
         <artifactId>zen</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    <groupId>com.coderdojo.zen</groupId>
     <artifactId>badge-service</artifactId>
-
+    <name>Badge Service</name>
+    <description>Demo project for Spring Boot</description>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>

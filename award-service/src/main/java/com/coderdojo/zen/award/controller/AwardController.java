@@ -3,6 +3,7 @@ package com.coderdojo.zen.award.controller;
 import com.coderdojo.zen.award.dto.AwardRequest;
 import com.coderdojo.zen.award.dto.AwardResponse;
 import com.coderdojo.zen.award.service.AwardService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +41,14 @@ public class AwardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAward(@RequestBody AwardRequest awardRequest) {
-        awardService.createAward(awardRequest);
+    @CircuitBreaker(name="awards", fallbackMethod = "fallbackMethod")
+    public String createAward(@RequestBody AwardRequest awardRequest)  {
+        return awardService.createAward(awardRequest);
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String fallbackMethod(AwardRequest awardRequest) {
+        return "Opps, something happened on our end";
     }
 
 }
