@@ -1,41 +1,5 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  health:
-    circuitbreakers:
-      enabled: true
-resilience4j:
-  circuitbreaker:
-    instances:
-      inventory:
-        register-health-indicator: true
-        event-consumer-buffer-size: 10
-        sliding-window-type: COUNT_BASED
-        sliding-window-size: 5
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 5s
-        permitted-number-of-calls-in-half-open-state: 3
-        automatic-transition-from-open-to-half-open-enabled: true
 spring:
   application:
     name: award-service
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zen
-    username: root
-    password: mysql
-  jpa:
-    hibernate:
-      ddl-auto: update
-server:
-  port: 8083
-
+  config:
+    import: configserver:http://localhost:8888
