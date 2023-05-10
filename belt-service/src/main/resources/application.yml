@@ -1,12 +1,5 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
 spring:
   application:
     name: belt-service
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/belt-service
-server:
-  port: 8081
+  config:
+    import: configserver:http://localhost:8888
