@@ -1,0 +1,28 @@
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        tool:
+          hbm2ddl: DEBUG
+spring:
+  application:
+    name: badge-service
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/zen
+    username: sa
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+server:
+  error:
+    include-exception: true
+    include-stacktrace: always
+  port: 8080

@@ -9,14 +9,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Javadoc
+ */
 @Service
 public class BeltService {
     private final BeltRepository beltRepository;
 
     /**
-     * The public name of a hero that is common knowledge
+     * Javadoc
      */
-
     BeltService(BeltRepository beltRepository) {
         this.beltRepository = beltRepository;
     }
@@ -31,12 +33,18 @@ public class BeltService {
         beltRepository.save(belt);
     }
 
+    /**
+     * Javadoc
+     */
     public List<BeltResponse> getAllBelts() {
         List<Belt> belts = beltRepository.findAll();
 
         return belts.stream().map(this::mapToBeltResponse).toList();
     }
 
+    /**
+     * Javadoc
+     */
     public BeltResponse getBeltById(Long id) {
         Optional<Belt> optionalBelt = beltRepository.findById(id);
         if (optionalBelt.isPresent()) {
