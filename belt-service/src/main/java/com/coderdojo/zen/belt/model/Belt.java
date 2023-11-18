@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Javadoc
+ */
 @Document(value = "belt")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Belt {
 
     @Id
-    private String id;
+    private Long id;
 
     private String name;
 

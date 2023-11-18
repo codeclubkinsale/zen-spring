@@ -9,15 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Returns an Image object that can then be painted on the screen.
- * The url argument must specify an absolute. The name
- * argument is a specifier that is relative to the url argument.
- * <p>
- * This method always returns immediately, whether the
- * image exists. When this applet attempts to draw the image on
- * the screen, the data will be loaded. The graphics primitives
- * that draw the image will incrementally paint on the screen.
- *
+ * Javadoc
  */
 @RestController
 @RequestMapping("/api/belts")
@@ -25,14 +17,15 @@ public class BeltController {
 
     private final BeltService beltService;
 
+    /**
+     * Javadoc
+     */
     BeltController(BeltService beltService) {
         this.beltService = beltService;
     }
+
     /**
-     * Hero is the main entity we'll be using to . . .
-     * Please see the class for true identity
-     * @author Captain America
-     * @return EntityModel
+     * Javadoc
      */
     @GetMapping()
     public List<BeltResponse> getAllBelts() {
@@ -40,12 +33,18 @@ public class BeltController {
         return beltService.getAllBelts();
     }
 
+    /**
+     * Javadoc
+     */
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void createBelt(@RequestBody BeltRequest beltRequest) {
         beltService.createBelt(beltRequest);
     }
 
+    /**
+     * Javadoc
+     */
     @GetMapping()
     @RequestMapping("/{id}")
     public BeltResponse getBeltById(@PathVariable Long id) {

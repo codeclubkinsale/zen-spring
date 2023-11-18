@@ -1,9 +1,3 @@
-eureka:
-  client:
-    fetch-registry: false
-    register-with-eureka: false
-  instance:
-    hostname: localhost
 logging:
   level:
     org:
@@ -13,20 +7,15 @@ logging:
           hbm2ddl: DEBUG
 spring:
   application:
-    name: belt-service
+    name: badge-service
   cloud:
     config:
       enabled: false
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/belt-service
   datasource:
-    url: jdbc:h2:mem:belts
+    url: jdbc:mysql://localhost:3306/zen
     username: sa
     password:
-  h2:
-    console:
-      enabled: true
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -36,4 +25,4 @@ server:
   error:
     include-exception: true
     include-stacktrace: always
-  port: 8082
+  port: 8080
