@@ -1,0 +1,46 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "name": "White Belt",
+      "description": "sunt aut hello",
+      "image_url": "quia et",
+      "version": null
+    },
+    {
+      "id": 2,
+      "name": "Yellow Belt",
+      "description": "sunt aut ",
+      "image_url": "quia",
+      "version": null
+    },
+    {
+      "id": 3,
+      "name": "Green Belt",
+      "description": "sunt aut",
+      "image_url": "quia",
+      "version": null
+    },
+    {
+      "id": 4,
+      "name": "Blue Belt",
+      "description": "sunt aut",
+      "image_url": "qu",
+      "version": null
+    },
+    {
+      "id": 5,
+      "name": "Orange Belt",
+      "description": "sunt aut",
+      "image_url": "to",
+      "version": null
+    },
+    {
+      "id": 6,
+      "name": "Red Belt",
+      "description": "sunt aut",
+      "image_url": "to",
+      "version": null
+    }
+  ]
+}
