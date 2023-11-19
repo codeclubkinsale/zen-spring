@@ -34,7 +34,7 @@ public class BeltRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        List<Belt> belts = List.of(new Belt(10,"Two", "Three","Four"));
+        List<Belt> belts = List.of(new Belt(1,"Test Title", "Test Body","Test Body",null));
         beltRepository.saveAll(belts);
     }
 
@@ -46,12 +46,12 @@ public class BeltRepositoryTest {
 
     @Test
     void shouldReturnBeltByName() {
-        Belt belt = beltRepository.findByName("Two").orElseThrow();
-        assertEquals("Two", belt.name(), "Belt title should be 'Hello, World!'");
+        Belt belt = beltRepository.findByName("Test Title").orElseThrow();
+        assertEquals("Test Title", belt.name(), "Belt title should be 'Hello, World!'");
     }
 
     @Test
-    void shouldNotReturnBeltWhenNameIsNotFound() {
+    void shouldNotReturnBeltWhenTitleIsNotFound() {
         Optional<Belt> belt = beltRepository.findByName("Hello, Wrong Title!");
         assertFalse(belt.isPresent(), "Belt should not be present");
     }

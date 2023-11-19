@@ -40,7 +40,7 @@ class BeltControllerIntTest {
     @Test
     void shouldFindAllBelts() {
         Belt[] belts = restTemplate.getForObject("/api/belts", Belt[].class);
-        assertThat(belts.length).isGreaterThan(100);
+        assertThat(belts.length).isGreaterThan(8);
     }
 
     @Test
@@ -59,21 +59,21 @@ class BeltControllerIntTest {
     @Test
     @Rollback
     void shouldCreateNewBeltWhenBeltIsValid() {
-        Belt belt = new Belt(101,"101 Title","101 Body",null);
+        Belt belt = new Belt(9,"Test Name", "Test Description","Test Image",null);
 
-        ResponseEntity<Belt> response = restTemplate.exchange("/api/belts", HttpMethod.POST, new HttpEntity<Belt>(belt), Belt.class);
+        ResponseEntity<Belt> response = restTemplate.exchange("/api/belts", HttpMethod.POST, new HttpEntity<>(belt), Belt.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody()).isNotNull();
-        assertThat(Objects.requireNonNull(response.getBody()).id()).isEqualTo(101);
-        assertThat(response.getBody().name()).isEqualTo("101 Title");
-        assertThat(response.getBody().description()).isEqualTo("101 Body");
-        assertThat(response.getBody().imageURL()).isEqualTo(null);
+        assertThat(Objects.requireNonNull(response.getBody()).id()).isEqualTo(9);
+        assertThat(response.getBody().name()).isEqualTo("Test Name");
+        assertThat(response.getBody().description()).isEqualTo("Test Description");
+        assertThat(response.getBody().image()).isEqualTo("Test Image");
     }
 
     @Test
     void shouldNotCreateNewBeltWhenValidationFails() {
-        Belt belt = new Belt(101,"","",null);
-        ResponseEntity<Belt> response = restTemplate.exchange("/api/belts", HttpMethod.POST, new HttpEntity<Belt>(belt), Belt.class);
+        Belt belt = new Belt(9,"Test Title", "Test Body","",null);
+        ResponseEntity<Belt> response = restTemplate.exchange("/api/belts", HttpMethod.POST, new HttpEntity<>(belt), Belt.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -81,17 +81,17 @@ class BeltControllerIntTest {
     @Test
     @Rollback
     void shouldUpdateBeltWhenBeltIsValid() {
-        ResponseEntity<Belt> response = restTemplate.exchange("/api/belts/99", HttpMethod.GET, null, Belt.class);
+        ResponseEntity<Belt> response = restTemplate.exchange("/api/belts/8", HttpMethod.GET, null, Belt.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         Belt existing = response.getBody();
         assertThat(existing).isNotNull();
-        Belt updated = new Belt(existing.id(),existing.name(),"NEW POST TITLE #1", "NEW POST BODY #1");
+        Belt updated = new Belt(existing.id(),existing.name(),"NEW POST TITLE #1", "NEW POST BODY #1",existing.version());
 
-        assertThat(updated.id()).isEqualTo(99);
-        assertThat(updated.name()).isEqualTo("NEW POST TITLE #1");
+        assertThat(updated.id()).isEqualTo(8);
+        assertThat(updated.name()).isEqualTo("Black Belt");
         assertThat(updated.description()).isEqualTo("NEW POST TITLE #1");
-        assertThat(updated.imageURL()).isEqualTo("NEW POST BODY #1");
+        assertThat(updated.image()).isEqualTo("NEW POST BODY #1");
     }
 
     @Test

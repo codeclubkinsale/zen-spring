@@ -15,34 +15,24 @@ public class BeltJsonTest {
 
     @Test
     void shouldSerializeBelt() throws Exception {
-        Belt belt = new Belt(1,"Two", "Three","Four");
-        String expected = STR."""
-                {
-                    "id":\{belt.id()},
-                    "name":"\{belt.name()}",
-                    "description":"\{belt.description()}",
-                    "imageURL":"\{belt.imageURL()}"
-                }
-                """;
+        Belt belt = new Belt(1,"Test Title", "Test Body","Test Body",null);
+        String expected = """
+                {"id":1,"name":"Test Title","description":"Test Body","image":"Test Body","version":null}
+        """;
         assertThat(jacksonTester.write(belt)).isEqualToJson(expected);
     }
 
     @Test
     void shouldDeserializeBelt() throws Exception {
-        Belt belt = new Belt(1,"Two", "Three","Four");
-        String content = STR."""
-                {
-                    "id":\{belt.id()},
-                    "name":"\{belt.name()}",
-                    "description":"\{belt.description()}",
-                    "imageURL":"\{belt.imageURL()}"
-                }
-                """;
+        Belt belt = new Belt(1,"Test Name", "Test Description","Test Image",null);
+        String content = """
+                {"id":1,"name":"Test Name","description":"Test Description","image":"Test Image","version":null}
+        """;
 
         assertThat(jacksonTester.parseObject(content).id()).isEqualTo(1);
-        assertThat(jacksonTester.parseObject(content).name()).isEqualTo("Two");
-        assertThat(jacksonTester.parseObject(content).description()).isEqualTo("Three");
-        assertThat(jacksonTester.parseObject(content).imageURL()).isEqualTo("Four");
+        assertThat(jacksonTester.parseObject(content).name()).isEqualTo("Test Name");
+        assertThat(jacksonTester.parseObject(content).description()).isEqualTo("Test Description");
+        assertThat(jacksonTester.parseObject(content).image()).isEqualTo("Test Image");
     }
 
 }

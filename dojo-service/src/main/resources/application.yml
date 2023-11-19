@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: dojo-service
+  cloud:
+    discovery:
+      enabled: false
+  config:
+    import: optional:configserver:http://localhost:8888
+  sql:
+    init:
+      mode: always
+

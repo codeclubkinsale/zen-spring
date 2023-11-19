@@ -1,46 +1,52 @@
 {
-  "posts": [
+  "belts": [
     {
       "id": 1,
       "name": "White Belt",
-      "description": "sunt aut hello",
-      "image_url": "quia et",
-      "version": null
+      "description": "sunt aut facere repellat provnameent occaecati excepturi optio reprehenderit",
+      "image": "repudiandae"
     },
     {
       "id": 2,
       "name": "Yellow Belt",
-      "description": "sunt aut ",
-      "image_url": "quia",
-      "version": null
+      "description": "qui est esse",
+      "image": "repudiandae"
     },
     {
       "id": 3,
-      "name": "Green Belt",
-      "description": "sunt aut",
-      "image_url": "quia",
-      "version": null
+      "name": "Blue Belt",
+      "description": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+      "image": "repudiandae"
     },
     {
       "id": 4,
-      "name": "Blue Belt",
-      "description": "sunt aut",
-      "image_url": "qu",
-      "version": null
+      "name": "Green Belt",
+      "description": "eum et est occaecati",
+      "image": "repudiandae"
     },
     {
       "id": 5,
       "name": "Orange Belt",
-      "description": "sunt aut",
-      "image_url": "to",
-      "version": null
+      "description": "nesciunt quas odio",
+      "image": "repudiandae"
     },
     {
       "id": 6,
       "name": "Red Belt",
-      "description": "sunt aut",
-      "image_url": "to",
-      "version": null
+      "description": "dolorem eum magni eos aperiam quia",
+      "image": "repudiandae"
+    },
+    {
+      "id": 7,
+      "name": "Purple Belt",
+      "description": "magnam facilis autem",
+      "image": "repudiandae"
+    },
+    {
+      "id": 8,
+      "name": "Black Belt",
+      "description": "dolorem dolore est ipsam",
+      "image": "repudiandae"
     }
   ]
 }

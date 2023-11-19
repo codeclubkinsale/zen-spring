@@ -1,5 +1,6 @@
 package com.coderdojo.zen.belt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -14,9 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(BeltController.class)
 @AutoConfigureMockMvc
@@ -28,13 +32,16 @@ class BeltControllerTest {
     @MockBean
     BeltRepository repository;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     List<Belt> belts = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
         belts = List.of(
-                new Belt(1,"Hello, World!", "This is my first belt.",null),
-                new Belt(2,"Second Belt", "This is my second belt.",null)
+                new Belt(1,"Test Name One", "Test Description One","Test Image One",null),
+                new Belt(2,"Test Name Two", "Test Description Two","Test Image Two",null)
         );
     }
 
@@ -44,15 +51,17 @@ class BeltControllerTest {
                 [
                     {
                         "id":1,
-                        "name":"Hello, World!",
-                        "description":"This is my first belt.",
-                        "imageURL": null
+                        "name":"Test Name One",
+                        "description":"Test Description One",
+                        "image":"Test Image One",
+                        "version": null
                     },
                     {
                         "id":2,
-                        "name":"Second Belt",
-                        "description":"This is my second belt.",
-                        "imageURL": null
+                        "name":"Test Name Two",
+                        "description":"Test Description Two",
+                        "image":"Test Image Two",
+                        "version": null
                     }
                 ]
                 """;
@@ -69,78 +78,59 @@ class BeltControllerTest {
 
     @Test
     void shouldFindBeltWhenGivenValidId() throws Exception {
-        Belt belt = new Belt(1,"Test Title", "Test Body",null);
+        Belt belt = new Belt(1,"Test Title", "Test Body","Test Body",null);
         when(repository.findById(1)).thenReturn(Optional.of(belt));
-        String json = STR."""
-                {
-                    "id":\{belt.id()},
-                    "name":"\{belt.name()}",
-                    "description":"\{belt.description()}",
-                    "imageURL": null
-                }
-                """;
+
 
         mockMvc.perform(get("/api/belts/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(json));
+                .andExpect(jsonPath("$.name",
+                        is(belt.name())))
+                .andExpect(jsonPath("$.description",
+                        is(belt.description())))
+                .andExpect(jsonPath("$.image",
+                        is(belt.image())));
     }
 
     @Test
     void shouldCreateNewBeltWhenGivenValidID() throws Exception {
-        Belt belt = new Belt(3,"This is my brand new belt", "TEST BODY",null);
+        Belt belt = new Belt(1,"Test Title", "Test Body","Test Body",null);
         when(repository.save(belt)).thenReturn(belt);
-        String json = STR."""
-                {
-                    "id":\{belt.id()},
-                    "name":"\{belt.name()}",
-                    "description":"\{belt.description()}",
-                    "imageURL": null
-                }
-                """;
 
         mockMvc.perform(post("/api/belts")
                         .contentType("application/json")
-                        .content(json))
+                        .content(objectMapper.writeValueAsString(belt)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(json));
+                .andExpect(jsonPath("$.name",
+                is(belt.name())))
+                .andExpect(jsonPath("$.description",
+                        is(belt.description())))
+                .andExpect(jsonPath("$.image",
+                        is(belt.image())));
     }
 
     @Test
     void shouldUpdateBeltWhenGivenValidBelt() throws Exception {
-        Belt updated = new Belt(1,"This is my brand new belt", "UPDATED BODY","");
+        Belt updated = new Belt(1,"Test Title", "Test Body","Test Body",null);
         when(repository.findById(1)).thenReturn(Optional.of(belts.get(0)));
         when(repository.save(updated)).thenReturn(updated);
-        String requestBody = STR."""
-                {
-                    "id":\{updated.id()},
-                    "name":"\{updated.name()}",
-                    "description":"\{updated.description()}",
-                    "imageURL":"\{updated.imageURL()}"
-                }
-                """;
+
 
         mockMvc.perform(put("/api/belts/1")
-                        .contentType("application/json")
-                        .content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updated)))
                 .andExpect(status().isOk());
     }
 
     @Test
     void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidBeltID() throws Exception {
-        Belt updated = new Belt(50,"This is my brand new belt", "UPDATED BODY","");
+        Belt updated = new Belt(1,"Test Title", "Test Body","Test Body",null);
         when(repository.save(updated)).thenReturn(updated);
-        String json = STR."""
-                {
-                    "id":\{updated.id()},
-                    "name":"\{updated.name()}",
-                    "description":"\{updated.description()}",
-                    "imageURL":"\{updated.imageURL()}"
-                }
-                """;
+
 
         mockMvc.perform(put("/api/belts/999")
                         .contentType("application/json")
-                        .content(json))
+                        .content(objectMapper.writeValueAsString(updated)))
                 .andExpect(status().isNotFound());
     }
 

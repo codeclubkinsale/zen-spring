@@ -1,5 +1,11 @@
 spring:
   application:
     name: award-service
+  cloud:
+    discovery:
+      enabled: false
   config:
-    import: configserver:http://localhost:8888
+    import: optional:configserver:http://localhost:8888
+  sql:
+    init:
+      mode: always

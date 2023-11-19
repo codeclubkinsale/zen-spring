@@ -1,0 +1,52 @@
+{
+  "awards": [
+    {
+      "id": 1,
+      "name": "White Belt",
+      "description": "sunt aut facere repellat provnameent occaecati excepturi optio reprehenderit",
+      "image": "repudiandae"
+    },
+    {
+      "id": 2,
+      "name": "Yellow Belt",
+      "description": "qui est esse",
+      "image": "repudiandae"
+    },
+    {
+      "id": 3,
+      "name": "Blue Belt",
+      "description": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+      "image": "repudiandae"
+    },
+    {
+      "id": 4,
+      "name": "Green Belt",
+      "description": "eum et est occaecati",
+      "image": "repudiandae"
+    },
+    {
+      "id": 5,
+      "name": "Orange Belt",
+      "description": "nesciunt quas odio",
+      "image": "repudiandae"
+    },
+    {
+      "id": 6,
+      "name": "Red Belt",
+      "description": "dolorem eum magni eos aperiam quia",
+      "image": "repudiandae"
+    },
+    {
+      "id": 7,
+      "name": "Purple Belt",
+      "description": "magnam facilis autem",
+      "image": "repudiandae"
+    },
+    {
+      "id": 8,
+      "name": "Black Belt",
+      "description": "dolorem dolore est ipsam",
+      "image": "repudiandae"
+    }
+  ]
+}

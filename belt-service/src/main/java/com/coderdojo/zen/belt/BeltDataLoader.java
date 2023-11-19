@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Javadoc
+ */
 @Component
 class BeltDataLoader implements CommandLineRunner {
 
@@ -17,19 +20,25 @@ class BeltDataLoader implements CommandLineRunner {
     private final ObjectMapper objectMapper;
     private final BeltRepository beltRepository;
 
+    /**
+     * Javadoc
+     */
     public BeltDataLoader(ObjectMapper objectMapper, BeltRepository beltRepository) {
         this.objectMapper = objectMapper;
         this.beltRepository = beltRepository;
     }
 
+    /**
+     * Javadoc
+     */
     @Override
     public void run(String... args) throws Exception {
         if(beltRepository.count() == 0){
-            String BELTS_JSON = "/data/belts.json";
-            log.info("Loading belts into database from JSON: {}", BELTS_JSON);
-            try (InputStream inputStream = TypeReference.class.getResourceAsStream(BELTS_JSON)) {
+            String DOJOS_JSON = "/data/belts.json";
+            log.info("Loading belts into database from JSON: {}", DOJOS_JSON);
+            try (InputStream inputStream = TypeReference.class.getResourceAsStream(DOJOS_JSON)) {
                 Belts response = objectMapper.readValue(inputStream, Belts.class);
-                beltRepository.saveAll(response.posts());
+                beltRepository.saveAll(response.belts());
             } catch (IOException e) {
                 throw new RuntimeException("Failed to read JSON data", e);
             }
