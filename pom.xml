@@ -24,6 +24,7 @@
         <module>user-service</module>
         <module>authorization-service</module>
         <module>config-service</module>
+        <module>jacoco-coverage-aggregate-report</module>
     </modules>
     <name>Zen</name>
     <description>Demo project for Spring Boot</description>
