@@ -130,6 +130,12 @@
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <id>report</id>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
