@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Award Service API
+  title: Badge Service API
   description: This is a sample Foobar server created using springdocs - a library
     for OpenAPI 3 with spring boot.
   termsOfService: http://swagger.io/terms/
@@ -18,11 +18,23 @@ tags:
       description: Spring Boot Actuator Web API Documentation
       url: https://docs.spring.io/spring-boot/docs/current/actuator-api/html/
 paths:
-  /awards:
+  /users:
     get:
       tags:
-        - Awards
+        - Users
       operationId: all
+      summary: Get all badges
+      parameters:
+          - name: category
+            in: query
+            description: ID of the object to fetch
+            required: false
+            schema:
+              type: string
+              enum:
+                - programming
+                - soft_skills
+                - events
       responses:
         "404":
           description: Not Found
@@ -35,16 +47,17 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelAward'
+                $ref: '#/components/schemas/CollectionModelEntityModelBadge'
     post:
       tags:
-        - Awards
-      operationId: newAward
+        - Users
+      operationId: newBadge
+      summary: Create badge
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Award'
+              $ref: '#/components/schemas/Badge'
         required: true
       responses:
         "404":
@@ -58,12 +71,13 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/EntityModelAward'
-  /awards/{id}:
+                $ref: '#/components/schemas/EntityModelBadge'
+  /users/{id}:
     get:
       tags:
-        - Awards
+        - Users
       operationId: one
+      summary: Get badge by id
       parameters:
         - name: id
           in: path
@@ -83,11 +97,12 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/EntityModelAward'
+                $ref: '#/components/schemas/EntityModelBadge'
     put:
       tags:
-        - Awards
+        - Users
       operationId: complete
+      summary: Update badge by id
       parameters:
         - name: id
           in: path
@@ -110,8 +125,9 @@ paths:
                 type: object
     delete:
       tags:
-        - Awards
+        - Users
       operationId: cancel
+      summary: Delete badge by id
       parameters:
         - name: id
           in: path
@@ -126,12 +142,8 @@ paths:
             '*/*':
               schema:
                 type: string
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
+        "204":
+          description: No Content
   /actuator:
     get:
       tags:
@@ -169,9 +181,35 @@ paths:
                   type: object
                   additionalProperties:
                     $ref: '#/components/schemas/Link'
+  /actuator/health:
+    get:
+      tags:
+        - Actuator
+      summary: Actuator health web endpoint
+      operationId: links
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+  /actuator/health/{path}:
+    get:
+      tags:
+        - Actuator
+      summary: Actuator path health web endpoint
+      operationId: links
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
 components:
   schemas:
-    Award:
+    Badge:
       type: object
       properties:
         id:
@@ -185,7 +223,7 @@ components:
             - IN_PROGRESS
             - COMPLETED
             - CANCELLED
-    EntityModelAward:
+    EntityModelBadge:
       type: object
       properties:
         id:
@@ -222,16 +260,16 @@ components:
           type: string
         templated:
           type: boolean
-    CollectionModelEntityModelAward:
+    CollectionModelEntityModelBadge:
       type: object
       properties:
         _embedded:
           type: object
           properties:
-            awardList:
+            badgeList:
               type: array
               items:
-                $ref: '#/components/schemas/EntityModelAward'
+                $ref: '#/components/schemas/EntityModelBadge'
         _links:
           type: array
           items:

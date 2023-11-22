@@ -1,0 +1,149 @@
+asyncapi: '2.6.0'
+id: https://api.coderdojokinsale.com
+info:
+  title: CoderDojo Zen
+  description: This is a sample server.
+  termsOfService: https://asyncapi.org/terms/
+  contact:
+    name: API Support
+    url: https://www.asyncapi.org/support
+    email: support@asyncapi.org
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+servers:
+  development:
+    url: https://api.coderdojokinsale.com/{version}
+    protocol: mqtt5
+    protocolVersion: 5.0.0
+    description: A sample description for this `Server Object`
+    variables:
+      version:
+        default: v1
+        description: A sample description for this `Server Variable Object`
+    tags:
+      - name: env:production
+        description: A sample description for this `Tag Object`
+    bindings:
+      http:
+        type: request
+        method: GET
+defaultContentType: application/json
+channels:
+  /awards:
+    description: A sample description for this `Channel Item Object`
+    subscribe:
+      operationId: createUser
+      summary: A sample summary for this `Operation Object`
+      description: A sample description for this `Operation Object`
+      security:
+        - httpBearerToken:
+            - write:pets
+            - read:pets
+      tags:
+        - name: ps
+      externalDocs:
+        description: External Documentation
+        url: https://www.example.com/
+      bindings:
+        http:
+          type: request
+          method: GET
+      message:
+        messageId: 'createUserMessage'
+        traits:
+          - headers:
+              type: object
+              properties:
+                Authorization:
+                  type: string
+                  description: Bearer token for authentication
+        payload:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the user
+            email:
+              type: string
+              format: email
+              description: The email address of the user
+  /awards/{awardId}:
+    parameters:
+      awardId:
+        description: The ID of the user
+        schema:
+          type: string
+    publish:
+      summary: Get user details
+      operationId: getUser
+      message:
+        messageId: 'getUserMessage'
+        traits:
+          - headers:
+              type: object
+              properties:
+                Authorization:
+                  type: string
+                  description: Bearer token for authentication
+        payload:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the user
+            email:
+              type: string
+              format: email
+              description: The email address of the user
+components:
+  parameters:
+    awardId:
+      description: Id of the award.
+      schema:
+        type: string
+  securitySchemes:
+    httpBearerToken:
+      type: http
+      scheme: bearer
+  operationTraits:
+    http:
+      bindings:
+        type: request
+tags:
+  - name: Authentication
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: https://www.example.com/
+  - name: Awards
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: https://www.example.com/
+  - name: Badges
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: https://www.example.com/
+  - name: Belts
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: https://www.example.com/
+  - name: Dojos
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: https://www.example.com/
+  - name: Events
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: https://www.example.com/
+  - name: Users
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: https://www.example.com/

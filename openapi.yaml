@@ -1,0 +1,296 @@
+openapi: 3.0.3
+info:
+  title: CoderDojo Zen API
+  description: This is a sample server for a pet store.
+  termsOfService: http://example.com/terms/
+  contact:
+    name: API Support
+    url: http://www.example.com/support
+    email: support@example.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about this API
+  url: http://api.coderdojokinsale.com
+servers:
+  - url: https://api.coderdojokinsale.com/v1
+    description: Remote
+  - url: http://localhost:8080
+    description: Local
+
+paths:
+  /awards:
+    $ref: ./award-service/src/main/resources/openapi.yaml#/paths/~1awards
+  /awards/{id}:
+    $ref: ./award-service/src/main/resources/openapi.yaml#/paths/~1awards~1{id}
+  /badges:
+    $ref: ./badge-service/src/main/resources/openapi.yaml#/paths/~1badges
+  /badges/{id}:
+    $ref: ./badge-service/src/main/resources/openapi.yaml#/paths/~1badges~1{id}
+  /belts:
+    $ref: ./belt-service/src/main/resources/openapi.yaml#/paths/~1belts
+  /belts/{id}:
+    $ref: ./belt-service/src/main/resources/openapi.yaml#/paths/~1belts~1{id}
+  /dojos:
+    $ref: ./dojo-service/src/main/resources/openapi.yaml#/paths/~1dojos
+  /dojos/{id}:
+    $ref: ./dojo-service/src/main/resources/openapi.yaml#/paths/~1dojos~1{id}
+  /events:
+    $ref: ./event-service/src/main/resources/openapi.yaml#/paths/~1events
+  /events/{id}:
+    $ref: ./event-service/src/main/resources/openapi.yaml#/paths/~1events~1{id}
+  /users:
+    $ref: ./user-service/src/main/resources/openapi.yaml#/paths/~1users
+  /users/{id}:
+    $ref: ./user-service/src/main/resources/openapi.yaml#/paths/~1users~1{id}
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        description:
+          type: string
+    Errors:
+      type: array
+      items:
+        $ref: '#/components/schemas/Error'
+    Light:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/State'
+        swupdate:
+          $ref: '#/components/schemas/SwUpdate'
+        type:
+          description: A fixed name describing the type of light e.g. “Extended color light”.
+          type: string
+        name:
+          description: A unique, editable name given to the light.
+          type: string
+        modelid:
+          description: The hardware model of the light.
+          type: string
+        manufacturername:
+          description: The manufacturer name.
+          type: string
+        productname:
+          type: string
+        cababilities:
+          $ref: '#/components/schemas/Capabilities'
+        config:
+          $ref: '#/components/schemas/Config'
+        uniqueid:
+          description: 'Unique id of the device. The MAC address of the device with a unique endpoint id in the form: AA:BB:CC:DD:EE:FF:00:11-XX'
+          type: string
+        swversion:
+          description: An identifier for the software version running on the light.
+          type: string
+    State:
+      description: Details the state of the light, see the state table below for more details.
+      type: object
+      properties:
+        on:
+          description: On/Off state of the light. On=true, Off=false
+          type: boolean
+        bri:
+          description: Brightness of the light. This is a scale from the minimum brightness the light is capable of, 1, to the maximum capable brightness, 254.
+          type: integer
+          minimum: 1
+          maximum: 254
+        hue:
+          description: Hue of the light. This is a wrapping value between 0 and 65535. Note, that hue/sat values are hardware dependent which means that programming two devices with the same value does not garantuee that they will be the same color. Programming 0 and 65535 would mean that the light will resemble the color red, 21845 for green and 43690 for blue.
+          type: integer
+          minimum: 0
+          maximum: 65535
+        sat:
+          description: Saturation of the light. 254 is the most saturated (colored) and 0 is the least saturated (white).
+          type: integer
+          minimum: 0
+          maximum: 254
+        effect:
+          description: The dynamic effect of the light, can either be “none” or “colorloop”.If set to colorloop, the light will cycle through all hues using the current brightness and saturation settings.
+          type: string
+          enum:
+            - "none"
+            - "colorloop"
+        xy:
+          description: 'The x and y coordinates of a color in CIE color space. The first entry is the x coordinate and the second entry is the y coordinate. Both x and y are between 0 and 1. Using CIE xy, the colors can be the same on all lamps if the coordinates are within every lamps gamuts (example: “xy”:[0.409,0.5179] is the same color on all lamps). If not, the lamp will calculate it’s closest color and use that. The CIE xy color is absolute, independent from the hardware.'
+          type: integer
+          format: float
+          minimum: 0
+          maximum: 1
+        ct:
+          description: The Mired Color temperature of the light. 2012 connected lights are capable of 153 (6500K) to 500 (2000K).
+          type: integer
+          minimum: 153
+          maximum: 500
+        alert:
+          description: 'The alert effect, which is a temporary change to the bulb’s state. This can take one of the following values: “none” – The light is not performing an alert effect. “select” – The light is performing one breathe cycle. “lselect” – The light is performing breathe cycles for 15 seconds or until an "alert": "none" command is received.Note that this contains the last alert sent to the light and not its current state. i.e. After the breathe cycle has finished the bridge does not reset the alert to “none“.'
+          type: string
+          enum:
+            - "none"
+            - "select"
+            - "lselect"
+        colormode:
+          description: Indicates the color mode in which the light is working, this is the last command type it received. Values are “hs” for Hue and Saturation, “xy” for XY and “ct” for Color Temperature. This parameter is only present when the light supports at least one of the values.
+          type: string
+          enum:
+            - "hs"
+            - "xy"
+            - "ct"
+        mode:
+          type: string
+        reachable:
+          description: Indicates if a light can be reached by the bridge.
+          type: boolean
+    Capabilities:
+      type: object
+      properties:
+        certified:
+          type: boolean
+        control:
+          $ref: '#/components/schemas/Capabilities'
+    Control:
+      type: object
+      properties:
+        mindimlevel:
+          type: integer
+        maxlumen:
+          type: integer
+        ct:
+          type: object
+          properties:
+            min:
+              type: integer
+            max:
+              type: integer
+    Streaming:
+      description: Current light supports streaming features
+      type: object
+      properties:
+        renderer:
+          description: Indicates if a lamp can be used for entertainment streaming as renderer
+          type: boolean
+        proxy:
+          description: Indicates if a lamp can be used for entertainment streaming as a proxy node
+          type: boolean
+    Config:
+      type: object
+      properties:
+        archetype:
+          type: string
+        function:
+          type: string
+        direction:
+          type: string
+        startup:
+          type: object
+          properties:
+            mode:
+              type: string
+            configured:
+              type: boolean
+    SwUpdate:
+      type: object
+      properties:
+        state:
+          type: string
+        lastinstall:
+          type: string
+    Success:
+      type: object
+      properties:
+        success:
+          type: object
+          properties:
+            /lights:
+              type: string
+  parameters:
+    Username:
+      name: username
+      required: true
+      in: path
+      description: ID of the resource
+      schema:
+        type: string
+        example: 9vwVI-K-x8m8vlOcXo9NbJy27cgEOi6CfeDGy7Qw
+    Element:
+      name: element
+      required: true
+      in: path
+      description: ID of the resource
+      schema:
+        type: string
+    ResourceType:
+      name: resourcetype
+      required: true
+      in: path
+      description: ID of the resource
+      schema:
+        type: string
+    ID:
+      name: id
+      required: true
+      in: path
+      description: ID of the resource
+      schema:
+        type: string
+    Resource:
+      name: resource
+      required: true
+      in: path
+      description: ID of the resource
+      schema:
+        type: string
+        enum:
+          - lights
+          - sensors
+          - groups
+          - scenes
+          - schedules
+          - rules
+          - timezones
+          - streaming
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+tags:
+  - name: Authentication
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: http://www.example.com/
+  - name: Awards
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: http://www.example.com/
+  - name: Badges
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: http://www.example.com/
+  - name: Belts
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: http://www.example.com/
+  - name: Dojos
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: http://www.example.com/
+  - name: Events
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: http://www.example.com/
+  - name: Users
+    description: A sample description for this `Tag Object`
+    externalDocs:
+      description: External Documentation
+      url: http://www.example.com/

@@ -6,46 +6,13 @@ servers:
 - url: http://localhost:8080
   description: Generated server url
 tags:
-- name: Belts
+- name: Dojo
   description: the Belt API
 paths:
-  /belts:
+  /dojos/{id}:
     get:
       tags:
-        - Belts
-      summary: Create user
-      description: This can only be done by the logged in user.
-      operationId: findAll
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Belt'
-    post:
-      tags:
-        - Belts
-      operationId: save
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Belt'
-        required: true
-      responses:
-        "201":
-          description: Created
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Belt'
-  /belts/{id}:
-    get:
-      tags:
-      - Belts
+      - Dojos
       operationId: findById
       parameters:
       - name: id
@@ -69,7 +36,7 @@ paths:
                 $ref: '#/components/schemas/Belt'
     put:
       tags:
-      - Belts
+      - Dojos
       operationId: update
       parameters:
       - name: id
@@ -93,7 +60,7 @@ paths:
                 $ref: '#/components/schemas/Belt'
     delete:
       tags:
-      - Belts
+      - Dojos
       operationId: delete
       parameters:
       - name: id
@@ -105,6 +72,39 @@ paths:
       responses:
         "204":
           description: No Content
+  /dojos:
+    get:
+      tags:
+      - Dojos
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: findAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Belt'
+    post:
+      tags:
+      - Dojos
+      operationId: save
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Belt'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Belt'
 components:
   schemas:
     Belt:
