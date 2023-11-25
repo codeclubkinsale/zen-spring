@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Javadoc
+ */
 @Tag(name = "Event", description = "the Event API")
 @RestController
 @RequestMapping("/api/events")
@@ -21,9 +24,16 @@ class EventController {
     private static final Logger log = LoggerFactory.getLogger(EventController.class);
     private final EventRepository repository;
 
+    /**
+     * Javadoc
+     */
     public EventController(EventRepository repository) {
         this.repository = repository;
     }
+
+    /**
+     * Javadoc
+     */
     @Operation(summary = "Create user", description = "This can only be done by the logged in user.", tags = { "user" })
     @GetMapping("")
     List<Event> findAll() {
@@ -38,12 +48,18 @@ class EventController {
         return Optional.ofNullable(repository.findById(id).orElseThrow(EventNotFoundException::new));
     }
 
+    /**
+     * Javadoc
+     */
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     Event save(@RequestBody @Valid Event event) {
         return repository.save(event);
     }
 
+    /**
+     * Javadoc
+     */
     @PutMapping("/{id}")
     Event update(@PathVariable Integer id, @RequestBody Event event) {
         Optional<Event> existing = repository.findById(id);
@@ -60,6 +76,9 @@ class EventController {
         }
     }
 
+    /**
+     * Javadoc
+     */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     void delete(@PathVariable Integer id) {
