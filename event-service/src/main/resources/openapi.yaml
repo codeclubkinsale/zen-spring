@@ -18,10 +18,10 @@ tags:
       description: Spring Boot Actuator Web API Documentation
       url: https://docs.spring.io/spring-boot/docs/current/actuator-api/html/
 paths:
-  /api/v1/badges:
+  /events:
     get:
       tags:
-        - Badges
+        - Events
       operationId: all
       summary: Get all badges
       parameters:
@@ -50,7 +50,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelEntityModelBadge'
     post:
       tags:
-        - Badges
+        - Events
       operationId: newBadge
       summary: Create badge
       requestBody:
@@ -72,10 +72,10 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/EntityModelBadge'
-  /api/v1/badges/{id}:
+  /events/{id}:
     get:
       tags:
-        - Badges
+        - Events
       operationId: one
       summary: Get badge by id
       parameters:
@@ -100,7 +100,7 @@ paths:
                 $ref: '#/components/schemas/EntityModelBadge'
     put:
       tags:
-        - Badges
+        - Events
       operationId: complete
       summary: Update badge by id
       parameters:
@@ -125,7 +125,7 @@ paths:
                 type: object
     delete:
       tags:
-        - Badges
+        - Events
       operationId: cancel
       summary: Delete badge by id
       parameters:

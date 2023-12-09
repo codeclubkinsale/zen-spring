@@ -9,6 +9,9 @@ import java.util.Optional;
  */
 interface DojoRepository extends ListCrudRepository<Dojo,Integer> {
 
+    /**
+     * Javadoc
+     */
     Optional<Dojo> findByName(String name);
 
 }
