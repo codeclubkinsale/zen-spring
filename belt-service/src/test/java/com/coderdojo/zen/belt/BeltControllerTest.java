@@ -22,21 +22,45 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * Javadoc
+ */
 @WebMvcTest(BeltController.class)
 @AutoConfigureMockMvc
 class BeltControllerTest {
 
+    /**
+     * Javadoc
+     */
     @Autowired
     MockMvc mockMvc;
 
+    /**
+     * Javadoc
+     */
     @MockBean
     BeltRepository repository;
 
+    /**
+     * Javadoc
+     */
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Javadoc
+     */
     List<Belt> belts = new ArrayList<>();
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    BeltControllerTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @BeforeEach
     void setUp() {
         belts = List.of(
@@ -45,6 +69,11 @@ class BeltControllerTest {
         );
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindAllBelts() throws Exception {
         String jsonResponse = """
@@ -76,6 +105,11 @@ class BeltControllerTest {
 
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindBeltWhenGivenValidId() throws Exception {
         Belt belt = new Belt(1,"Test Title", "Test Body","Test Body",null);
@@ -92,6 +126,11 @@ class BeltControllerTest {
                         is(belt.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldCreateNewBeltWhenGivenValidID() throws Exception {
         Belt belt = new Belt(1,"Test Title", "Test Body","Test Body",null);
@@ -109,6 +148,11 @@ class BeltControllerTest {
                         is(belt.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldUpdateBeltWhenGivenValidBelt() throws Exception {
         Belt updated = new Belt(1,"Test Title", "Test Body","Test Body",null);
@@ -122,6 +166,11 @@ class BeltControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidBeltID() throws Exception {
         Belt updated = new Belt(1,"Test Title", "Test Body","Test Body",null);
@@ -134,6 +183,11 @@ class BeltControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldDeleteBeltWhenGivenValidID() throws Exception {
         doNothing().when(repository).deleteById(1);

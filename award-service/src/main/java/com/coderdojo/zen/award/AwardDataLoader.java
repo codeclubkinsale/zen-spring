@@ -16,27 +16,43 @@ import java.io.InputStream;
 @Component
 class AwardDataLoader implements CommandLineRunner {
 
+    /**
+     * Javadoc
+     */
     private static final Logger log = LoggerFactory.getLogger(AwardDataLoader.class);
-    private final ObjectMapper objectMapper;
-    private final AwardRepository awardRepository;
 
     /**
      * Javadoc
      */
-    public AwardDataLoader(ObjectMapper objectMapper, AwardRepository awardRepository) {
+    private final ObjectMapper objectMapper;
+
+    /**
+     * Javadoc
+     */
+    private final AwardRepository awardRepository;
+
+    /**
+     * Javadoc
+     *
+     * @param objectMapper Example
+     * @param awardRepository Example
+     */
+    AwardDataLoader(ObjectMapper objectMapper, AwardRepository awardRepository) {
         this.objectMapper = objectMapper;
         this.awardRepository = awardRepository;
     }
 
     /**
      * Javadoc
+     *
+     * @param args Example
      */
     @Override
     public void run(String... args) throws Exception {
         if(awardRepository.count() == 0){
-            String DOJOS_JSON = "/data/awards.json";
-            log.info("Loading awards into database from JSON: {}", DOJOS_JSON);
-            try (InputStream inputStream = TypeReference.class.getResourceAsStream(DOJOS_JSON)) {
+            String awardsJSON = "/data/awards.json";
+            log.info("Loading awards into database from JSON: {}", awardsJSON);
+            try (InputStream inputStream = TypeReference.class.getResourceAsStream(awardsJSON)) {
                 Awards response = objectMapper.readValue(inputStream, Awards.class);
                 awardRepository.saveAll(response.awards());
             } catch (IOException e) {

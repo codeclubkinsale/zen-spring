@@ -16,27 +16,44 @@ import java.io.InputStream;
 @Component
 class BadgeDataLoader implements CommandLineRunner {
 
+    /**
+     * Javadoc
+     */
     private static final Logger log = LoggerFactory.getLogger(BadgeDataLoader.class);
-    private final ObjectMapper objectMapper;
-    private final BadgeRepository badgeRepository;
 
     /**
      * Javadoc
      */
-    public BadgeDataLoader(ObjectMapper objectMapper, BadgeRepository badgeRepository) {
+    private final ObjectMapper objectMapper;
+
+    /**
+     * Javadoc
+     */
+    private final BadgeRepository badgeRepository;
+
+    /**
+     * Javadoc
+     *
+     * @param objectMapper Example
+     * @param badgeRepository Example
+     */
+    BadgeDataLoader(ObjectMapper objectMapper, BadgeRepository badgeRepository) {
         this.objectMapper = objectMapper;
         this.badgeRepository = badgeRepository;
     }
 
     /**
      * Javadoc
+     *
+     * @param args Example
+     * @throws Exception Example
      */
     @Override
     public void run(String... args) throws Exception {
         if(badgeRepository.count() == 0){
-            String DOJOS_JSON = "/data/badges.json";
-            log.info("Loading badges into database from JSON: {}", DOJOS_JSON);
-            try (InputStream inputStream = TypeReference.class.getResourceAsStream(DOJOS_JSON)) {
+            String badgesJSON = "/data/badges.json";
+            log.info("Loading badges into database from JSON: {}", badgesJSON);
+            try (InputStream inputStream = TypeReference.class.getResourceAsStream(badgesJSON)) {
                 Badges response = objectMapper.readValue(inputStream, Badges.class);
                 badgeRepository.saveAll(response.badges());
             } catch (IOException e) {

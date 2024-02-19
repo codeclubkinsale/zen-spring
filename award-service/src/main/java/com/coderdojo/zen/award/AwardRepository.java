@@ -9,6 +9,12 @@ import java.util.Optional;
  */
 interface AwardRepository extends ListCrudRepository<Award,Integer> {
 
+    /**
+     * Javadoc
+     *
+     * @param name Example
+     * @return Example
+     */
     Optional<Award> findByName(String name);
 
 }

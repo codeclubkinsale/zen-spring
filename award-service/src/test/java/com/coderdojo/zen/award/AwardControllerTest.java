@@ -22,21 +22,45 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * Javadoc
+ */
 @WebMvcTest(AwardController.class)
 @AutoConfigureMockMvc
 class AwardControllerTest {
 
+    /**
+     * Javadoc
+     */
     @Autowired
     MockMvc mockMvc;
 
+    /**
+     * Javadoc
+     */
     @MockBean
     AwardRepository repository;
 
+    /**
+     * Javadoc
+     */
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Javadoc
+     */
     List<Award> awards = new ArrayList<>();
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    AwardControllerTest() { }
+
+    /**
+     * Javadoc
+     */
     @BeforeEach
     void setUp() {
         awards = List.of(
@@ -45,6 +69,11 @@ class AwardControllerTest {
         );
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindAllAwards() throws Exception {
         String jsonResponse = """
@@ -76,6 +105,11 @@ class AwardControllerTest {
 
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindAwardWhenGivenValidId() throws Exception {
         Award award = new Award(1,"Test Title", "Test Body","Test Body",null);
@@ -92,6 +126,11 @@ class AwardControllerTest {
                         is(award.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldCreateNewAwardWhenGivenValidID() throws Exception {
         Award award = new Award(1,"Test Title", "Test Body","Test Body",null);
@@ -109,10 +148,15 @@ class AwardControllerTest {
                         is(award.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldUpdateAwardWhenGivenValidAward() throws Exception {
         Award updated = new Award(1,"Test Title", "Test Body","Test Body",null);
-        when(repository.findById(1)).thenReturn(Optional.of(awards.get(0)));
+        when(repository.findById(1)).thenReturn(Optional.of(awards.getFirst()));
         when(repository.save(updated)).thenReturn(updated);
 
 
@@ -122,6 +166,11 @@ class AwardControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidAwardID() throws Exception {
         Award updated = new Award(1,"Test Title", "Test Body","Test Body",null);
@@ -134,6 +183,11 @@ class AwardControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldDeleteAwardWhenGivenValidID() throws Exception {
         doNothing().when(repository).deleteById(1);

@@ -19,30 +19,54 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Javadoc
+ */
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class DojoControllerIntTest {
 
+    /**
+     * Javadoc
+     */
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
 
+    /**
+     * Javadoc
+     */
     @Autowired
     TestRestTemplate restTemplate;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    DojoControllerIntTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @Test
     void connectionEstablished() {
         assertThat(postgres.isCreated()).isTrue();
         assertThat(postgres.isRunning()).isTrue();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindAllDojos() {
         Dojo[] dojos = restTemplate.getForObject("/api/dojos", Dojo[].class);
-        assertThat(dojos.length).isGreaterThan(8);
+        assertThat(dojos).hasSizeGreaterThan(8);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindDojoWhenValidDojoID() {
         ResponseEntity<Dojo> response = restTemplate.exchange("/api/dojos/1", HttpMethod.GET, null, Dojo.class);
@@ -50,12 +74,18 @@ class DojoControllerIntTest {
         assertThat(response.getBody()).isNotNull();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldThrowNotFoundWhenInvalidDojoID() {
         ResponseEntity<Dojo> response = restTemplate.exchange("/api/dojos/999", HttpMethod.GET, null, Dojo.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldCreateNewDojoWhenDojoIsValid() {
@@ -70,6 +100,9 @@ class DojoControllerIntTest {
         assertThat(response.getBody().image()).isEqualTo("Test Image");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldNotCreateNewDojoWhenValidationFails() {
         Dojo dojo = new Dojo(9,"Test Title", "Test Body","",null);
@@ -78,6 +111,9 @@ class DojoControllerIntTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldUpdateDojoWhenDojoIsValid() {
@@ -94,6 +130,9 @@ class DojoControllerIntTest {
         assertThat(updated.image()).isEqualTo("NEW POST BODY #1");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldDeleteWithValidID() {

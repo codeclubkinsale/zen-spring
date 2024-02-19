@@ -16,27 +16,43 @@ import java.io.InputStream;
 @Component
 class DojoDataLoader implements CommandLineRunner {
 
+    /**
+     * Javadoc
+     */
     private static final Logger log = LoggerFactory.getLogger(DojoDataLoader.class);
-    private final ObjectMapper objectMapper;
-    private final DojoRepository dojoRepository;
 
     /**
      * Javadoc
      */
-    public DojoDataLoader(ObjectMapper objectMapper, DojoRepository dojoRepository) {
+    private final ObjectMapper objectMapper;
+
+    /**
+     * Javadoc
+     */
+    private final DojoRepository dojoRepository;
+
+    /**
+     * Javadoc
+     *
+     * @param objectMapper Example
+     * @param dojoRepository Example
+     */
+    DojoDataLoader(ObjectMapper objectMapper, DojoRepository dojoRepository) {
         this.objectMapper = objectMapper;
         this.dojoRepository = dojoRepository;
     }
 
     /**
      * Javadoc
+     *
+     * @param args Example
      */
     @Override
     public void run(String... args) throws Exception {
         if(dojoRepository.count() == 0){
-            String DOJOS_JSON = "/data/dojos.json";
-            log.info("Loading dojos into database from JSON: {}", DOJOS_JSON);
-            try (InputStream inputStream = TypeReference.class.getResourceAsStream(DOJOS_JSON)) {
+            String dojosJSON = "/data/dojos.json";
+            log.info("Loading dojos into database from JSON: {}", dojosJSON);
+            try (InputStream inputStream = TypeReference.class.getResourceAsStream(dojosJSON)) {
                 Dojos response = objectMapper.readValue(inputStream, Dojos.class);
                 dojoRepository.saveAll(response.dojos());
             } catch (IOException e) {

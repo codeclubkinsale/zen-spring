@@ -19,30 +19,54 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Javadoc
+ */
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class BadgeControllerIntTest {
 
+    /**
+     * Javadoc
+     */
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
 
+    /**
+     * Javadoc
+     */
     @Autowired
     TestRestTemplate restTemplate;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    BadgeControllerIntTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @Test
     void connectionEstablished() {
         assertThat(postgres.isCreated()).isTrue();
         assertThat(postgres.isRunning()).isTrue();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindAllBadges() {
         Badge[] badges = restTemplate.getForObject("/api/badges", Badge[].class);
-        assertThat(badges.length).isGreaterThan(8);
+        assertThat(badges).hasSizeGreaterThan(8);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindBadgeWhenValidBadgeID() {
         ResponseEntity<Badge> response = restTemplate.exchange("/api/badges/1", HttpMethod.GET, null, Badge.class);
@@ -50,12 +74,18 @@ class BadgeControllerIntTest {
         assertThat(response.getBody()).isNotNull();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldThrowNotFoundWhenInvalidBadgeID() {
         ResponseEntity<Badge> response = restTemplate.exchange("/api/badges/999", HttpMethod.GET, null, Badge.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldCreateNewBadgeWhenBadgeIsValid() {
@@ -70,6 +100,9 @@ class BadgeControllerIntTest {
         assertThat(response.getBody().image()).isEqualTo("Test Image");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldNotCreateNewBadgeWhenValidationFails() {
         Badge badge = new Badge(9,"Test Title", "Test Body","",null);
@@ -78,6 +111,9 @@ class BadgeControllerIntTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldUpdateBadgeWhenBadgeIsValid() {
@@ -94,6 +130,9 @@ class BadgeControllerIntTest {
         assertThat(updated.image()).isEqualTo("NEW POST BODY #1");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldDeleteWithValidID() {

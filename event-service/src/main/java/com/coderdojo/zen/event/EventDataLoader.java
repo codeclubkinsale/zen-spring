@@ -16,27 +16,43 @@ import java.io.InputStream;
 @Component
 class EventDataLoader implements CommandLineRunner {
 
+    /**
+     * Javadoc
+     */
     private static final Logger log = LoggerFactory.getLogger(EventDataLoader.class);
-    private final ObjectMapper objectMapper;
-    private final EventRepository eventRepository;
 
     /**
      * Javadoc
      */
-    public EventDataLoader(ObjectMapper objectMapper, EventRepository eventRepository) {
+    private final ObjectMapper objectMapper;
+
+    /**
+     * Javadoc
+     */
+    private final EventRepository eventRepository;
+
+    /**
+     * Javadoc
+     *
+     * @param objectMapper Example
+     * @param eventRepository Example
+     */
+    EventDataLoader(ObjectMapper objectMapper, EventRepository eventRepository) {
         this.objectMapper = objectMapper;
         this.eventRepository = eventRepository;
     }
 
     /**
      * Javadoc
+     *
+     * @param args Example
      */
     @Override
     public void run(String... args) throws Exception {
         if(eventRepository.count() == 0){
-            String DOJOS_JSON = "/data/events.json";
-            log.info("Loading events into database from JSON: {}", DOJOS_JSON);
-            try (InputStream inputStream = TypeReference.class.getResourceAsStream(DOJOS_JSON)) {
+            String eventsJSON = "/data/events.json";
+            log.info("Loading events into database from JSON: {}", eventsJSON);
+            try (InputStream inputStream = TypeReference.class.getResourceAsStream(eventsJSON)) {
                 Events response = objectMapper.readValue(inputStream, Events.class);
                 eventRepository.saveAll(response.events());
             } catch (IOException e) {

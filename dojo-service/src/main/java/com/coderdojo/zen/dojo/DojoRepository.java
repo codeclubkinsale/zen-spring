@@ -11,6 +11,9 @@ interface DojoRepository extends ListCrudRepository<Dojo,Integer> {
 
     /**
      * Javadoc
+     *
+     * @param name Example
+     * @return Example
      */
     Optional<Dojo> findByName(String name);
 

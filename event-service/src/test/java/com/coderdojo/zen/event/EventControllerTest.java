@@ -22,21 +22,45 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * Javadoc
+ */
 @WebMvcTest(EventController.class)
 @AutoConfigureMockMvc
 class EventControllerTest {
 
+    /**
+     * Javadoc
+     */
     @Autowired
     MockMvc mockMvc;
 
+    /**
+     * Javadoc
+     */
     @MockBean
     EventRepository repository;
 
+    /**
+     * Javadoc
+     */
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Javadoc
+     */
     List<Event> events = new ArrayList<>();
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    EventControllerTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @BeforeEach
     void setUp() {
         events = List.of(
@@ -45,6 +69,11 @@ class EventControllerTest {
         );
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindAllEvents() throws Exception {
         String jsonResponse = """
@@ -76,6 +105,11 @@ class EventControllerTest {
 
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindEventWhenGivenValidId() throws Exception {
         Event event = new Event(1,"Test Title", "Test Body","Test Body",null);
@@ -92,6 +126,11 @@ class EventControllerTest {
                         is(event.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldCreateNewEventWhenGivenValidID() throws Exception {
         Event event = new Event(1,"Test Title", "Test Body","Test Body",null);
@@ -109,6 +148,11 @@ class EventControllerTest {
                         is(event.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldUpdateEventWhenGivenValidEvent() throws Exception {
         Event updated = new Event(1,"Test Title", "Test Body","Test Body",null);
@@ -122,6 +166,11 @@ class EventControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidEventID() throws Exception {
         Event updated = new Event(1,"Test Title", "Test Body","Test Body",null);
@@ -134,6 +183,11 @@ class EventControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldDeleteEventWhenGivenValidID() throws Exception {
         doNothing().when(repository).deleteById(1);

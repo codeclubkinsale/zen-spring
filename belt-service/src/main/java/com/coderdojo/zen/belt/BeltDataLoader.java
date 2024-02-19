@@ -16,27 +16,41 @@ import java.io.InputStream;
 @Component
 class BeltDataLoader implements CommandLineRunner {
 
+    /**
+     * Javadoc
+     */
     private static final Logger log = LoggerFactory.getLogger(BeltDataLoader.class);
+    /**
+     * Javadoc
+     */
     private final ObjectMapper objectMapper;
+    /**
+     * Javadoc
+     */
     private final BeltRepository beltRepository;
 
     /**
      * Javadoc
+     *
+     * @param objectMapper Example
+     * @param beltRepository Example
      */
-    public BeltDataLoader(ObjectMapper objectMapper, BeltRepository beltRepository) {
+    BeltDataLoader(ObjectMapper objectMapper, BeltRepository beltRepository) {
         this.objectMapper = objectMapper;
         this.beltRepository = beltRepository;
     }
 
     /**
      * Javadoc
+     *
+     * @param args Example
      */
     @Override
     public void run(String... args) throws Exception {
         if(beltRepository.count() == 0){
-            String DOJOS_JSON = "/data/belts.json";
-            log.info("Loading belts into database from JSON: {}", DOJOS_JSON);
-            try (InputStream inputStream = TypeReference.class.getResourceAsStream(DOJOS_JSON)) {
+            String beltsJSON = "/data/belts.json";
+            log.info("Loading belts into database from JSON: {}", beltsJSON);
+            try (InputStream inputStream = TypeReference.class.getResourceAsStream(beltsJSON)) {
                 Belts response = objectMapper.readValue(inputStream, Belts.class);
                 beltRepository.saveAll(response.belts());
             } catch (IOException e) {

@@ -9,6 +9,12 @@ import java.util.Optional;
  */
 interface BeltRepository extends ListCrudRepository<Belt,Integer> {
 
+    /**
+     * Javadoc
+     *
+     * @param name Example
+     * @return Example
+     */
     Optional<Belt> findByName(String name);
 
 }

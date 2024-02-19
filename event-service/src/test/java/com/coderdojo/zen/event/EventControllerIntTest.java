@@ -19,30 +19,54 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Javadoc
+ */
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class EventControllerIntTest {
 
+    /**
+     * Javadoc
+     */
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
 
+    /**
+     * Javadoc
+     */
     @Autowired
     TestRestTemplate restTemplate;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    EventControllerIntTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @Test
     void connectionEstablished() {
         assertThat(postgres.isCreated()).isTrue();
         assertThat(postgres.isRunning()).isTrue();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindAllEvents() {
         Event[] events = restTemplate.getForObject("/api/events", Event[].class);
-        assertThat(events.length).isGreaterThan(8);
+        assertThat(events).hasSizeGreaterThan(8);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindEventWhenValidEventID() {
         ResponseEntity<Event> response = restTemplate.exchange("/api/events/1", HttpMethod.GET, null, Event.class);
@@ -50,12 +74,18 @@ class EventControllerIntTest {
         assertThat(response.getBody()).isNotNull();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldThrowNotFoundWhenInvalidEventID() {
         ResponseEntity<Event> response = restTemplate.exchange("/api/events/999", HttpMethod.GET, null, Event.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldCreateNewEventWhenEventIsValid() {
@@ -70,6 +100,9 @@ class EventControllerIntTest {
         assertThat(response.getBody().image()).isEqualTo("Test Image");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldNotCreateNewEventWhenValidationFails() {
         Event event = new Event(9,"Test Title", "Test Body","",null);
@@ -78,6 +111,9 @@ class EventControllerIntTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldUpdateEventWhenEventIsValid() {
@@ -94,6 +130,9 @@ class EventControllerIntTest {
         assertThat(updated.image()).isEqualTo("NEW POST BODY #1");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldDeleteWithValidID() {

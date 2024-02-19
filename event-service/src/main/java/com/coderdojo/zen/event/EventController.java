@@ -5,8 +5,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,24 +19,37 @@ import java.util.Optional;
 @RequestMapping("/api/events")
 class EventController {
 
-    private static final Logger log = LoggerFactory.getLogger(EventController.class);
+    /**
+     * Javadoc
+     */
     private final EventRepository repository;
 
     /**
      * Javadoc
+     *
+     * @param repository Example
      */
-    public EventController(EventRepository repository) {
+    EventController(EventRepository repository) {
         this.repository = repository;
     }
 
     /**
      * Javadoc
+     *
+     * @return Example
      */
     @Operation(summary = "Create user", description = "This can only be done by the logged in user.", tags = { "user" })
     @GetMapping("")
     List<Event> findAll() {
         return repository.findAll();
     }
+
+    /**
+     * Javadoc
+     *
+     * @param id Example
+     * @return Example
+     */
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "delete Tweet"),
             @ApiResponse(responseCode = "404", description = "tweet not found")
@@ -50,6 +61,9 @@ class EventController {
 
     /**
      * Javadoc
+     *
+     * @param event Example
+     * @return Example
      */
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
@@ -59,6 +73,10 @@ class EventController {
 
     /**
      * Javadoc
+     *
+     * @param id Example
+     * @param event Example
+     * @return Example
      */
     @PutMapping("/{id}")
     Event update(@PathVariable Integer id, @RequestBody Event event) {
@@ -78,6 +96,8 @@ class EventController {
 
     /**
      * Javadoc
+     *
+     * @param id Example
      */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")

@@ -17,39 +17,69 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Javadoc
+ */
 @Testcontainers
 @DataJdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class DojoRepositoryTest {
+class DojoRepositoryTest {
 
+    /**
+     * Javadoc
+     */
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
 
+    /**
+     * Javadoc
+     */
     @Autowired
     DojoRepository dojoRepository;
 
+    /**
+     * Javadoc
+     */
     @Autowired
     JdbcConnectionDetails jdbcConnectionDetails;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    DojoRepositoryTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @BeforeEach
     void setUp() {
         List<Dojo> dojos = List.of(new Dojo(1,"Test Title", "Test Body","Test Body",null));
         dojoRepository.saveAll(dojos);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void connectionEstablished() {
         assertThat(postgres.isCreated()).isTrue();
         assertThat(postgres.isRunning()).isTrue();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldReturnDojoByName() {
         Dojo dojo = dojoRepository.findByName("Test Title").orElseThrow();
         assertEquals("Test Title", dojo.name(), "Dojo title should be 'Hello, World!'");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldNotReturnDojoWhenTitleIsNotFound() {
         Optional<Dojo> dojo = dojoRepository.findByName("Hello, Wrong Title!");
