@@ -7,12 +7,26 @@ import org.springframework.boot.test.json.JacksonTester;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Javadoc
+ */
 @JsonTest
-public class DojoJsonTest {
+class DojoJsonTest {
 
     @Autowired
     private JacksonTester<Dojo> jacksonTester;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    DojoJsonTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldSerializeDojo() throws Exception {
         Dojo dojo = new Dojo(1,"Test Title", "Test Body","Test Body",null);
@@ -22,6 +36,11 @@ public class DojoJsonTest {
         assertThat(jacksonTester.write(dojo)).isEqualToJson(expected);
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldDeserializeDojo() throws Exception {
         Dojo dojo = new Dojo(1,"Test Name", "Test Description","Test Image",null);

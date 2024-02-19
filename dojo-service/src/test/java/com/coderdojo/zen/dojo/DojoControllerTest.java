@@ -22,21 +22,45 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * Javadoc
+ */
 @WebMvcTest(DojoController.class)
 @AutoConfigureMockMvc
 class DojoControllerTest {
 
+    /**
+     * Javadoc
+     */
     @Autowired
     MockMvc mockMvc;
 
+    /**
+     * Javadoc
+     */
     @MockBean
     DojoRepository repository;
 
+    /**
+     * Javadoc
+     */
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Javadoc
+     */
     List<Dojo> dojos = new ArrayList<>();
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    DojoControllerTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @BeforeEach
     void setUp() {
         dojos = List.of(
@@ -45,6 +69,11 @@ class DojoControllerTest {
         );
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindAllDojos() throws Exception {
         String jsonResponse = """
@@ -76,6 +105,11 @@ class DojoControllerTest {
 
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindDojoWhenGivenValidId() throws Exception {
         Dojo dojo = new Dojo(1,"Test Title", "Test Body","Test Body",null);
@@ -92,6 +126,11 @@ class DojoControllerTest {
                         is(dojo.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldCreateNewDojoWhenGivenValidID() throws Exception {
         Dojo dojo = new Dojo(1,"Test Title", "Test Body","Test Body",null);
@@ -109,10 +148,15 @@ class DojoControllerTest {
                         is(dojo.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldUpdateDojoWhenGivenValidDojo() throws Exception {
         Dojo updated = new Dojo(1,"Test Title", "Test Body","Test Body",null);
-        when(repository.findById(1)).thenReturn(Optional.of(dojos.get(0)));
+        when(repository.findById(1)).thenReturn(Optional.of(dojos.getFirst()));
         when(repository.save(updated)).thenReturn(updated);
 
 
@@ -122,6 +166,11 @@ class DojoControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidDojoID() throws Exception {
         Dojo updated = new Dojo(1,"Test Title", "Test Body","Test Body",null);
@@ -134,6 +183,11 @@ class DojoControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldDeleteDojoWhenGivenValidID() throws Exception {
         doNothing().when(repository).deleteById(1);

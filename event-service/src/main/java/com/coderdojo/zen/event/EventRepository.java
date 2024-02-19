@@ -9,6 +9,12 @@ import java.util.Optional;
  */
 interface EventRepository extends ListCrudRepository<Event,Integer> {
 
+    /**
+     * Javadoc
+     *
+     * @param name Example
+     * @return Example
+     */
     Optional<Event> findByName(String name);
 
 }

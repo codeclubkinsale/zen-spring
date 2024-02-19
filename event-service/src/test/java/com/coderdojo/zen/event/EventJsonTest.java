@@ -7,12 +7,29 @@ import org.springframework.boot.test.json.JacksonTester;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Javadoc
+ */
 @JsonTest
-public class EventJsonTest {
+class EventJsonTest {
 
+    /**
+     * Javadoc
+     */
     @Autowired
     private JacksonTester<Event> jacksonTester;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    EventJsonTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldSerializeEvent() throws Exception {
         Event event = new Event(1,"Test Title", "Test Body","Test Body",null);
@@ -22,6 +39,11 @@ public class EventJsonTest {
         assertThat(jacksonTester.write(event)).isEqualToJson(expected);
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldDeserializeEvent() throws Exception {
         Event event = new Event(1,"Test Name", "Test Description","Test Image",null);

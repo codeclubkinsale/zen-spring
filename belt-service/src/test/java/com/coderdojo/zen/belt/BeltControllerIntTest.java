@@ -19,30 +19,54 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Javadoc
+ */
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class BeltControllerIntTest {
 
+    /**
+     * Javadoc
+     */
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
 
+    /**
+     * Javadoc
+     */
     @Autowired
     TestRestTemplate restTemplate;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    BeltControllerIntTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @Test
     void connectionEstablished() {
         assertThat(postgres.isCreated()).isTrue();
         assertThat(postgres.isRunning()).isTrue();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindAllBelts() {
         Belt[] belts = restTemplate.getForObject("/api/belts", Belt[].class);
-        assertThat(belts.length).isGreaterThan(8);
+        assertThat(belts).hasSizeGreaterThan(8);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindBeltWhenValidBeltID() {
         ResponseEntity<Belt> response = restTemplate.exchange("/api/belts/1", HttpMethod.GET, null, Belt.class);
@@ -50,12 +74,18 @@ class BeltControllerIntTest {
         assertThat(response.getBody()).isNotNull();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldThrowNotFoundWhenInvalidBeltID() {
         ResponseEntity<Belt> response = restTemplate.exchange("/api/belts/999", HttpMethod.GET, null, Belt.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldCreateNewBeltWhenBeltIsValid() {
@@ -70,6 +100,9 @@ class BeltControllerIntTest {
         assertThat(response.getBody().image()).isEqualTo("Test Image");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldNotCreateNewBeltWhenValidationFails() {
         Belt belt = new Belt(9,"Test Title", "Test Body","",null);
@@ -78,6 +111,9 @@ class BeltControllerIntTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldUpdateBeltWhenBeltIsValid() {
@@ -94,6 +130,9 @@ class BeltControllerIntTest {
         assertThat(updated.image()).isEqualTo("NEW POST BODY #1");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldDeleteWithValidID() {

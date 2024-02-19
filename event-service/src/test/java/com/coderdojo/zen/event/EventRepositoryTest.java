@@ -17,39 +17,69 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Javadoc
+ */
 @Testcontainers
 @DataJdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class EventRepositoryTest {
+class EventRepositoryTest {
 
+    /**
+     * Javadoc
+     */
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
 
+    /**
+     * Javadoc
+     */
     @Autowired
     EventRepository eventRepository;
 
+    /**
+     * Javadoc
+     */
     @Autowired
     JdbcConnectionDetails jdbcConnectionDetails;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    EventRepositoryTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @BeforeEach
     void setUp() {
         List<Event> events = List.of(new Event(1,"Test Title", "Test Body","Test Body",null));
         eventRepository.saveAll(events);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void connectionEstablished() {
         assertThat(postgres.isCreated()).isTrue();
         assertThat(postgres.isRunning()).isTrue();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldReturnEventByName() {
         Event event = eventRepository.findByName("Test Title").orElseThrow();
         assertEquals("Test Title", event.name(), "Event title should be 'Hello, World!'");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldNotReturnEventWhenTitleIsNotFound() {
         Optional<Event> event = eventRepository.findByName("Hello, Wrong Title!");

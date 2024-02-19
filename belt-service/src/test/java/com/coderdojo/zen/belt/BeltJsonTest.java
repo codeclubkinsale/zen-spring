@@ -7,12 +7,29 @@ import org.springframework.boot.test.json.JacksonTester;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Javadoc
+ */
 @JsonTest
-public class BeltJsonTest {
+class BeltJsonTest {
 
+    /**
+     * Javadoc
+     */
     @Autowired
     private JacksonTester<Belt> jacksonTester;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    BeltJsonTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldSerializeBelt() throws Exception {
         Belt belt = new Belt(1,"Test Title", "Test Body","Test Body",null);
@@ -22,6 +39,11 @@ public class BeltJsonTest {
         assertThat(jacksonTester.write(belt)).isEqualToJson(expected);
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldDeserializeBelt() throws Exception {
         Belt belt = new Belt(1,"Test Name", "Test Description","Test Image",null);

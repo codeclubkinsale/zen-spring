@@ -19,30 +19,54 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Javadoc
+ */
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class AwardControllerIntTest {
 
+    /**
+     * Javadoc
+     */
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
 
+    /**
+     * Javadoc
+     */
     @Autowired
     TestRestTemplate restTemplate;
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    AwardControllerIntTest() { }
+
+    /**
+     * Javadoc
+     */
     @Test
     void connectionEstablished() {
         assertThat(postgres.isCreated()).isTrue();
         assertThat(postgres.isRunning()).isTrue();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindAllAwards() {
         Award[] awards = restTemplate.getForObject("/api/awards", Award[].class);
-        assertThat(awards.length).isGreaterThan(8);
+        assertThat(awards).hasSizeGreaterThan(8);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldFindAwardWhenValidAwardID() {
         ResponseEntity<Award> response = restTemplate.exchange("/api/awards/1", HttpMethod.GET, null, Award.class);
@@ -50,12 +74,18 @@ class AwardControllerIntTest {
         assertThat(response.getBody()).isNotNull();
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldThrowNotFoundWhenInvalidAwardID() {
         ResponseEntity<Award> response = restTemplate.exchange("/api/awards/999", HttpMethod.GET, null, Award.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldCreateNewAwardWhenAwardIsValid() {
@@ -70,6 +100,9 @@ class AwardControllerIntTest {
         assertThat(response.getBody().image()).isEqualTo("Test Image");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     void shouldNotCreateNewAwardWhenValidationFails() {
         Award award = new Award(9,"Test Title", "Test Body","",null);
@@ -78,6 +111,9 @@ class AwardControllerIntTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldUpdateAwardWhenAwardIsValid() {
@@ -94,6 +130,9 @@ class AwardControllerIntTest {
         assertThat(updated.image()).isEqualTo("NEW POST BODY #1");
     }
 
+    /**
+     * Javadoc
+     */
     @Test
     @Rollback
     void shouldDeleteWithValidID() {

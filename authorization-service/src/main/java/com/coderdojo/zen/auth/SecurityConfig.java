@@ -36,9 +36,25 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
+/**
+ * Javadoc
+ */
 @Configuration
 public class SecurityConfig {
 
+	/**
+	 * Sole constructor. (For invocation by subclass
+	 * constructors, typically implicit.)
+	 */
+	SecurityConfig() { /* Default Constructor */ }
+
+	/**
+	 * Javadoc
+	 *
+	 * @throws Exception Example
+	 *
+	 * @return Example
+	 */
 	@Bean
 	@Order(1)
 	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
@@ -59,6 +75,15 @@ public class SecurityConfig {
 		return http.build();
 	}
 
+	/**
+	 * Javadoc
+	 *
+	 * @param http Example
+	 *
+	 * @throws Exception Example
+	 *
+	 * @return Example
+	 */
 	@Bean
 	@Order(2)
 	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
@@ -74,6 +99,11 @@ public class SecurityConfig {
 		return http.build();
 	}
 
+	/**
+	 * Javadoc
+	 *
+	 * @return Example
+	 */
 	@Bean
 	public UserDetailsService userDetailsService() {
 		UserDetails userDetails = User.withDefaultPasswordEncoder()
@@ -85,6 +115,11 @@ public class SecurityConfig {
 		return new InMemoryUserDetailsManager(userDetails);
 	}
 
+	/**
+	 * Javadoc
+	 *
+	 * @return Example
+	 */
 	@Bean
 	public RegisteredClientRepository registeredClientRepository() {
 		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -106,6 +141,11 @@ public class SecurityConfig {
 		return new InMemoryRegisteredClientRepository(registeredClient);
 	}
 
+	/**
+	 * Javadoc
+	 *
+	 * @return Example
+	 */
 	@Bean
 	public JWKSource<SecurityContext> jwkSource() {
 		KeyPair keyPair = generateRsaKey();
@@ -119,6 +159,11 @@ public class SecurityConfig {
 		return new ImmutableJWKSet<>(jwkSet);
 	}
 
+	/**
+	 * Javadoc
+	 *
+	 * @return Example
+	 */
 	private static KeyPair generateRsaKey() {
 		KeyPair keyPair;
 		try {
@@ -132,11 +177,23 @@ public class SecurityConfig {
 		return keyPair;
 	}
 
+	/**
+	 * Javadoc
+	 *
+	 * @param jwkSource Example
+	 *
+	 * @return Example
+	 */
 	@Bean
 	public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
 		return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
 	}
 
+	/**
+	 * Javadoc
+	 *
+	 * @return Example
+	 */
 	@Bean
 	public AuthorizationServerSettings authorizationServerSettings() {
 		return AuthorizationServerSettings.builder().build();

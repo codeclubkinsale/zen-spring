@@ -22,21 +22,45 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * Javadoc
+ */
 @WebMvcTest(BadgeController.class)
 @AutoConfigureMockMvc
 class BadgeControllerTest {
 
+    /**
+     * Javadoc
+     */
     @Autowired
     MockMvc mockMvc;
 
+    /**
+     * Javadoc
+     */
     @MockBean
     BadgeRepository repository;
 
+    /**
+     * Javadoc
+     */
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Javadoc
+     */
     List<Badge> badges = new ArrayList<>();
 
+    /**
+     * Sole constructor. (For invocation by subclass
+     * constructors, typically implicit.)
+     */
+    BadgeControllerTest() { /* Default Constructor */ }
+
+    /**
+     * Javadoc
+     */
     @BeforeEach
     void setUp() {
         badges = List.of(
@@ -45,6 +69,11 @@ class BadgeControllerTest {
         );
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindAllBadges() throws Exception {
         String jsonResponse = """
@@ -76,6 +105,11 @@ class BadgeControllerTest {
 
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldFindBadgeWhenGivenValidId() throws Exception {
         Badge badge = new Badge(1,"Test Title", "Test Body","Test Body",null);
@@ -92,6 +126,11 @@ class BadgeControllerTest {
                         is(badge.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldCreateNewBadgeWhenGivenValidID() throws Exception {
         Badge badge = new Badge(1,"Test Title", "Test Body","Test Body",null);
@@ -109,6 +148,11 @@ class BadgeControllerTest {
                         is(badge.image())));
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldUpdateBadgeWhenGivenValidBadge() throws Exception {
         Badge updated = new Badge(1,"Test Title", "Test Body","Test Body",null);
@@ -122,6 +166,11 @@ class BadgeControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidBadgeID() throws Exception {
         Badge updated = new Badge(1,"Test Title", "Test Body","Test Body",null);
@@ -134,6 +183,11 @@ class BadgeControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Javadoc
+     *
+     * @throws Exception Example
+     */
     @Test
     void shouldDeleteBadgeWhenGivenValidID() throws Exception {
         doNothing().when(repository).deleteById(1);
