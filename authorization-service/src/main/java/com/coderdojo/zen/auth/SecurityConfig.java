@@ -37,19 +37,19 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 /**
- * Javadoc
+ * Javadoc.
  */
 @Configuration
 public class SecurityConfig {
 
   /**
    * Sole constructor. (For invocation by subclass
-   * constructors, typically implicit.)
+   * constructors, typically implicit.).
    */
   SecurityConfig() { /* Default Constructor */ }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @return Example
    */
@@ -66,7 +66,7 @@ public class SecurityConfig {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @param http Example
    * @return Example
@@ -93,7 +93,7 @@ public class SecurityConfig {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @param http Example
    * @return Example
@@ -115,7 +115,7 @@ public class SecurityConfig {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @return Example
    */
@@ -131,7 +131,7 @@ public class SecurityConfig {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @return Example
    */
@@ -157,7 +157,7 @@ public class SecurityConfig {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @return Example
    */
@@ -175,7 +175,7 @@ public class SecurityConfig {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @param jwkSource Example
    * @return Example
@@ -186,7 +186,7 @@ public class SecurityConfig {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @return Example
    */
