@@ -1,13 +1,10 @@
 # CoderDojo Zen
 
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=kinsaledojo_zen-spring&metric=bugs)](https://sonarcloud.io/summary/new_code?id=kinsaledojo_zen-spring)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=kinsaledojo_zen-spring&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=kinsaledojo_zen-spring)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kinsaledojo_zen-spring&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=kinsaledojo_zen-spring)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=kinsaledojo_zen-spring&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=kinsaledojo_zen-spring)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kinsaledojo_zen-spring&metric=coverage)](https://sonarcloud.io/summary/new_code?id=kinsaledojo_zen-spring)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=kinsaledojo_zen-spring&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=kinsaledojo_zen-spring)
-
-
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=codeclubkinsale_zen-spring&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=codeclubkinsale_zen-spring)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=codeclubkinsale_zen-spring&metric=bugs)](https://sonarcloud.io/summary/new_code?id=codeclubkinsale_zen-spring)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=codeclubkinsale_zen-spring&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=codeclubkinsale_zen-spring)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=codeclubkinsale_zen-spring&metric=coverage)](https://sonarcloud.io/summary/new_code?id=codeclubkinsale_zen-spring)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=codeclubkinsale_zen-spring&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=codeclubkinsale_zen-spring)
 
 ## Getting started
 
