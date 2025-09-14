@@ -50,6 +50,7 @@ public class SecurityConfig {
   /**
    * Javadoc.
    *
+   * @param http Example
    * @return Example
    * @throws Exception Example
    */
