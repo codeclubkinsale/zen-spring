@@ -51,10 +51,10 @@ class EventJsonTest {
                 {"id":1,"name":"Test Name","description":"Test Description","image":"Test Image","version":null}
         """;
 
-        assertThat(jacksonTester.parseObject(content).id()).isEqualTo(1);
-        assertThat(jacksonTester.parseObject(content).name()).isEqualTo("Test Name");
-        assertThat(jacksonTester.parseObject(content).description()).isEqualTo("Test Description");
-        assertThat(jacksonTester.parseObject(content).image()).isEqualTo("Test Image");
+        assertThat(jacksonTester.parseObject(content).id()).isEqualTo(event.id());
+        assertThat(jacksonTester.parseObject(content).name()).isEqualTo(event.name());
+        assertThat(jacksonTester.parseObject(content).description()).isEqualTo(event.description());
+        assertThat(jacksonTester.parseObject(content).image()).isEqualTo(event.image());
     }
 
 }
