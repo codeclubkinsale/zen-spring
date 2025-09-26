@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.coderdojo</groupId>
     <artifactId>zen</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </parent>
   <groupId>com.coderdojo.zen</groupId>
   <artifactId>jacoco-coverage-aggregate-report</artifactId>
@@ -20,27 +20,27 @@
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>award-service</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>badge-service</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>belt-service</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>dojo-service</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>event-service</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
   </dependencies>
 
