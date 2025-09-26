@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.coderdojo</groupId>
     <artifactId>zen</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </parent>
   <groupId>com.coderodjo.zen</groupId>
   <artifactId>user-service</artifactId>
@@ -34,8 +34,12 @@
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
       <exclusions>
         <exclusion>
-          <groupId>io.netty</groupId>
-          <artifactId>netty-codec-http</artifactId>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -84,9 +88,14 @@
     </dependency>
     <!--Start Vulnerability Upgrades-->
     <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-codec-http</artifactId>
-      <version>4.1.125.Final</version>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.13</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>32.0.0-jre</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

@@ -48,10 +48,10 @@ class BadgeJsonTest {
                 {"id":1,"name":"Test Name","description":"Test Description","image":"Test Image","version":null}
         """;
 
-        assertThat(jacksonTester.parseObject(content).id()).isEqualTo(1);
-        assertThat(jacksonTester.parseObject(content).name()).isEqualTo("Test Name");
-        assertThat(jacksonTester.parseObject(content).description()).isEqualTo("Test Description");
-        assertThat(jacksonTester.parseObject(content).image()).isEqualTo("Test Image");
+        assertThat(jacksonTester.parseObject(content).id()).isEqualTo(badge.id());
+        assertThat(jacksonTester.parseObject(content).name()).isEqualTo(badge.name());
+        assertThat(jacksonTester.parseObject(content).description()).isEqualTo(badge.description());
+        assertThat(jacksonTester.parseObject(content).image()).isEqualTo(badge.image());
     }
 
 }

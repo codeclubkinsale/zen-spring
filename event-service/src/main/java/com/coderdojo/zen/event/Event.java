@@ -5,22 +5,22 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 
 /**
- * Javadoc
+ * Javadoc.
  *
- * @param id Example
- * @param name Example
+ * @param id          Example
+ * @param name        Example
  * @param description Example
- * @param image Example
- * @param version Example
+ * @param image       Example
+ * @param version     Example
  */
 record Event(
-        @Id
-        Integer id,
-        @NotEmpty
-        String name,
-        @NotEmpty
-        String description,
-        @NotEmpty
-        String image,
-        @Version Integer version) {
+    @Id
+    Integer id,
+    @NotEmpty
+    String name,
+    @NotEmpty
+    String description,
+    @NotEmpty
+    String image,
+    @Version Integer version) {
 }

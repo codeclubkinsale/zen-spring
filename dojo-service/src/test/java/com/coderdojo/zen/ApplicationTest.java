@@ -47,7 +47,7 @@ public class ApplicationTest {
 	 */
 	@Test
 	void contextLoads() throws Exception {
-
-	}
+      // Empty test that would fail if our Spring configuration does not load correctly.
+    }
 
 }
