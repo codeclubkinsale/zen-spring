@@ -1,20 +1,19 @@
 package com.coderdojo.zen.belt;
 
+import java.util.Optional;
 import org.springframework.data.repository.ListCrudRepository;
 
-import java.util.Optional;
-
 /**
- * Javadoc
+ * Javadoc.
  */
-interface BeltRepository extends ListCrudRepository<Belt,Integer> {
+interface BeltRepository extends ListCrudRepository<Belt, Integer> {
 
-    /**
-     * Javadoc
-     *
-     * @param name Example
-     * @return Example
-     */
-    Optional<Belt> findByName(String name);
+  /**
+   * Javadoc.
+   *
+   * @param name Example
+   * @return Example
+   */
+  Optional<Belt> findByName(String name);
 
 }

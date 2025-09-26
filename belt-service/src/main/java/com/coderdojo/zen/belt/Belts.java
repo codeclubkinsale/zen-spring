@@ -3,7 +3,7 @@ package com.coderdojo.zen.belt;
 import java.util.List;
 
 /**
- * Javadoc
+ * Javadoc.
  *
  * @param belts Example
  */

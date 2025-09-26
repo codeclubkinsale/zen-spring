@@ -3,7 +3,7 @@ package com.coderdojo.zen.badge;
 import java.util.List;
 
 /**
- * Javadoc
+ * Javadoc.
  *
  * @param badges Example
  */

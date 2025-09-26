@@ -3,7 +3,7 @@ package com.coderdojo.zen.dojo;
 import java.util.List;
 
 /**
- * Javadoc
+ * Javadoc.
  *
  * @param dojos Example
  */

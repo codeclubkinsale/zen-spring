@@ -3,7 +3,7 @@ package com.coderdojo.zen.event;
 import java.util.List;
 
 /**
- * Javadoc
+ * Javadoc.
  *
  * @param events Example
  */

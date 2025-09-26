@@ -1,20 +1,19 @@
 package com.coderdojo.zen.badge;
 
+import java.util.Optional;
 import org.springframework.data.repository.ListCrudRepository;
 
-import java.util.Optional;
-
 /**
- * Javadoc
+ * Javadoc.
  */
-interface BadgeRepository extends ListCrudRepository<Badge,Integer> {
+interface BadgeRepository extends ListCrudRepository<Badge, Integer> {
 
-    /**
-     * Javadoc
-     *
-     * @param name Example
-     * @return Example
-     */
-    Optional<Badge> findByName(String name);
+  /**
+   * Javadoc.
+   *
+   * @param name Example
+   * @return Example
+   */
+  Optional<Badge> findByName(String name);
 
 }

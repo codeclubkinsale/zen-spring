@@ -3,7 +3,7 @@ package com.coderdojo.zen.award;
 import java.util.List;
 
 /**
- * Javadoc
+ * Javadoc.
  *
  * @param awards Example
  */
