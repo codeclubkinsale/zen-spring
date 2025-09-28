@@ -1,35 +1,41 @@
-package com.coderdojo.zen.auth;
+package com.coderdojo.zen;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.InputStream;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.TestConfiguration;
 
 /**
  * Javadoc.
  */
 @TestConfiguration(proxyBeanMethods = false)
-class ApplicationTest {
+public class ApplicationTest {
 
   /**
    * Sole constructor. (For invocation by subclass
-   * constructors, typically implicit.).
+   * constructors, typically implicit.)
    */
   ApplicationTest() { /* Default Constructor */
   }
 
   /**
    * Javadoc.
+   *
+   * @param args Example
+   */
+  public static void main(String[] args) {
+    SpringApplication.from(Application::main).with(ApplicationTest.class).run(args);
+  }
+
+  /**
+   * Javadoc.
    */
   @Test
-  void testMain() {
-    System.out.println("main");
+  void contextLoads() {
     String[] args = {"main", "test"};
-
-    final InputStream original = System.in;
-    Application.main(args);
-    System.setIn(original);
+    ApplicationTest.main(args);
     assertNotNull(args);
   }
+
 }

@@ -45,11 +45,9 @@ public class ApplicationTest {
 
   /**
    * Javadoc.
-   *
-   * @throws Exception Example
    */
   @Test
-  void contextLoads() throws Exception {
+  void contextLoads() {
     String[] args = {"main", "test"};
     ApplicationTest.main(args);
     assertNotNull(args);

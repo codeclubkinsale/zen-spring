@@ -1,17 +1,19 @@
-package com.coderdojo.zen.auth;
+package com.coderdojo.zen;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
  * Javadoc.
  */
+@EnableEurekaServer
 @SpringBootApplication
 public class Application {
 
   /**
    * Sole constructor. (For invocation by subclass
-   * constructors, typically implicit.).
+   * constructors, typically implicit.)
    */
   Application() { /* Default Constructor */
   }
@@ -24,4 +26,5 @@ public class Application {
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
   }
+
 }
