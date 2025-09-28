@@ -14,17 +14,17 @@
   <version>1.0.1</version>
   <packaging>pom</packaging>
   <modules>
-    <module>gateway-service</module>
+    <module>authorization-service</module>
     <module>award-service</module>
     <module>badge-service</module>
     <module>belt-service</module>
+    <module>config-service</module>
     <module>discovery-service</module>
     <module>dojo-service</module>
     <module>event-service</module>
-    <module>user-service</module>
-    <module>authorization-service</module>
-    <module>config-service</module>
+    <module>gateway-service</module>
     <module>jacoco-coverage-aggregate-report</module>
+    <module>user-service</module>
   </modules>
   <name>Zen</name>
   <description>Demo project for Spring Boot</description>
@@ -82,8 +82,10 @@
           </execution>
         </executions>
         <configuration>
+          <!--suppress UnresolvedMavenProperty -->
+          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
           <includes>
-            <include>**/*IntegrationTest.java</include>
+            <include>**/*IntTest.java</include>
           </includes>
         </configuration>
       </plugin>

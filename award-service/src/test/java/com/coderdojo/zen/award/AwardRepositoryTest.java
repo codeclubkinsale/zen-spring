@@ -1,5 +1,11 @@
 package com.coderdojo.zen.award;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,79 +17,74 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
- * Javadoc
+ * Javadoc.
  */
 @Testcontainers
 @DataJdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class AwardRepositoryTest {
 
-    /**
-     * Javadoc
-     */
-    @Container
-    @ServiceConnection
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
+  /**
+   * Javadoc.
+   */
+  @Container
+  @ServiceConnection
+  static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
 
-    /**
-     * Javadoc
-     */
-    @Autowired
-    AwardRepository awardRepository;
+  /**
+   * Javadoc.
+   */
+  @Autowired
+  AwardRepository awardRepository;
 
-    /**
-     * Javadoc
-     */
-    @Autowired
-    JdbcConnectionDetails jdbcConnectionDetails;
+  /**
+   * Javadoc.
+   */
+  @Autowired
+  JdbcConnectionDetails jdbcConnectionDetails;
 
-    /**
-     * Sole constructor. (For invocation by subclass
-     * constructors, typically implicit.)
-     */
-    AwardRepositoryTest() { }
+  /**
+   * Sole constructor. (For invocation by subclass
+   * constructors, typically implicit.)
+   */
+  AwardRepositoryTest() { /* Default Constructor */
+  }
 
-    /**
-     * Javadoc
-     */
-    @BeforeEach
-    void setUp() {
-        List<Award> awards = List.of(new Award(1,"Test Title", "Test Body","Test Body",null));
-        awardRepository.saveAll(awards);
-    }
+  /**
+   * Javadoc.
+   */
+  @BeforeEach
+  void setUp() {
+    List<Award> awards = List.of(new Award(9, "Test Title", "Test Body", "Test Body", null));
+    awardRepository.saveAll(awards);
+  }
 
-    /**
-     * Javadoc
-     */
-    @Test
-    void connectionEstablished() {
-        assertThat(postgres.isCreated()).isTrue();
-        assertThat(postgres.isRunning()).isTrue();
-    }
+  /**
+   * Javadoc.
+   */
+  @Test
+  void connectionEstablished() {
+    assertThat(postgres.isCreated()).isTrue();
+    assertThat(postgres.isRunning()).isTrue();
+  }
 
-    /**
-     * Javadoc
-     */
-    @Test
-    void shouldReturnAwardByName() {
-        Award award = awardRepository.findByName("Test Title").orElseThrow();
-        assertEquals("Test Title", award.name(), "Award title should be 'Hello, World!'");
-    }
+  /**
+   * Javadoc.
+   */
+  @Test
+  void shouldReturnAwardByName() {
+    Award award = awardRepository.findByName("Test Title").orElseThrow();
+    assertEquals("Test Title", award.name(), "Award title should be 'Hello, World!'");
+  }
 
-    /**
-     * Javadoc
-     */
-    @Test
-    void shouldNotReturnAwardWhenTitleIsNotFound() {
-        Optional<Award> award = awardRepository.findByName("Hello, Wrong Title!");
-        assertFalse(award.isPresent(), "Award should not be present");
-    }
+  /**
+   * Javadoc.
+   */
+  @Test
+  void shouldNotReturnAwardWhenTitleIsNotFound() {
+    Optional<Award> award = awardRepository.findByName("Hello, Wrong Title!");
+    assertFalse(award.isPresent(), "Award should not be present");
+  }
 
 }

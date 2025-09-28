@@ -1,4 +1,4 @@
-package com.coderdojo.zen.award;
+package com.coderdojo.zen.user;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.doNothing;
@@ -31,9 +31,9 @@ import org.springframework.test.web.servlet.ResultActions;
 /**
  * Javadoc.
  */
-@WebMvcTest(AwardController.class)
+@WebMvcTest(UserController.class)
 @AutoConfigureMockMvc
-class AwardControllerTest {
+class UserControllerTest {
 
   /**
    * Javadoc.
@@ -45,11 +45,11 @@ class AwardControllerTest {
    * Javadoc.
    */
   @MockitoBean
-  AwardRepository repository;
+  UserRepository repository;
   /**
    * Javadoc.
    */
-  List<Award> awards = new ArrayList<>();
+  List<User> users = new ArrayList<>();
   /**
    * Javadoc.
    */
@@ -60,7 +60,7 @@ class AwardControllerTest {
    * Sole constructor. (For invocation by subclass
    * constructors, typically implicit.)
    */
-  AwardControllerTest() { /* Default Constructor */
+  UserControllerTest() { /* Default Constructor */
   }
 
   /**
@@ -68,9 +68,9 @@ class AwardControllerTest {
    */
   @BeforeEach
   void setUp() {
-    awards = List.of(
-        new Award(1, "Test Name One", "Test Description One", "Test Image One", null),
-        new Award(2, "Test Name Two", "Test Description Two", "Test Image Two", null)
+    users = List.of(
+        new User(1, "Test Name One", "Test Description One", "Test Image One", null),
+        new User(2, "Test Name Two", "Test Description Two", "Test Image Two", null)
     );
   }
 
@@ -80,7 +80,7 @@ class AwardControllerTest {
    * @throws Exception Example
    */
   @Test
-  void shouldFindAllAwards() throws Exception {
+  void shouldFindAllUsers() throws Exception {
     String jsonResponse = """
         [
             {
@@ -100,9 +100,9 @@ class AwardControllerTest {
         ]
         """;
 
-    when(repository.findAll()).thenReturn(awards);
+    when(repository.findAll()).thenReturn(users);
 
-    ResultActions resultActions = mockMvc.perform(get("/api/awards"))
+    ResultActions resultActions = mockMvc.perform(get("/api/users"))
         .andExpect(status().isOk())
         .andExpect(content().json(jsonResponse));
 
@@ -117,19 +117,19 @@ class AwardControllerTest {
    * @throws Exception Example
    */
   @Test
-  void shouldFindAwardWhenGivenValidId() throws Exception {
-    Award award = new Award(1, "Test Title", "Test Body", "Test Body", null);
-    when(repository.findById(1)).thenReturn(Optional.of(award));
+  void shouldFindUserWhenGivenValidId() throws Exception {
+    User user = new User(1, "Test Title", "Test Body", "Test Body", null);
+    when(repository.findById(1)).thenReturn(Optional.of(user));
 
 
-    mockMvc.perform(get("/api/awards/1"))
+    mockMvc.perform(get("/api/users/1"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.name",
-            is(award.name())))
+            is(user.name())))
         .andExpect(jsonPath("$.description",
-            is(award.description())))
+            is(user.description())))
         .andExpect(jsonPath("$.image",
-            is(award.image())));
+            is(user.image())));
   }
 
   /**
@@ -138,20 +138,20 @@ class AwardControllerTest {
    * @throws Exception Example
    */
   @Test
-  void shouldCreateNewAwardWhenGivenValidId() throws Exception {
-    Award award = new Award(1, "Test Title", "Test Body", "Test Body", null);
-    when(repository.save(award)).thenReturn(award);
+  void shouldCreateNewUserWhenGivenValidId() throws Exception {
+    User user = new User(1, "Test Title", "Test Body", "Test Body", null);
+    when(repository.save(user)).thenReturn(user);
 
-    mockMvc.perform(post("/api/awards")
+    mockMvc.perform(post("/api/users")
             .contentType("application/json")
-            .content(objectMapper.writeValueAsString(award)))
+            .content(objectMapper.writeValueAsString(user)))
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.name",
-            is(award.name())))
+            is(user.name())))
         .andExpect(jsonPath("$.description",
-            is(award.description())))
+            is(user.description())))
         .andExpect(jsonPath("$.image",
-            is(award.image())));
+            is(user.image())));
   }
 
   /**
@@ -160,13 +160,13 @@ class AwardControllerTest {
    * @throws Exception Example
    */
   @Test
-  void shouldUpdateAwardWhenGivenValidAward() throws Exception {
-    Award updated = new Award(1, "Test Title", "Test Body", "Test Body", null);
-    when(repository.findById(1)).thenReturn(Optional.of(awards.getFirst()));
+  void shouldUpdateUserWhenGivenValidUser() throws Exception {
+    User updated = new User(1, "Test Title", "Test Body", "Test Body", null);
+    when(repository.findById(1)).thenReturn(Optional.of(users.getFirst()));
     when(repository.save(updated)).thenReturn(updated);
 
 
-    mockMvc.perform(put("/api/awards/1")
+    mockMvc.perform(put("/api/users/1")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(updated)))
         .andExpect(status().isOk());
@@ -178,12 +178,12 @@ class AwardControllerTest {
    * @throws Exception Example
    */
   @Test
-  void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidAwardId() throws Exception {
-    Award updated = new Award(1, "Test Title", "Test Body", "Test Body", null);
+  void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidUserId() throws Exception {
+    User updated = new User(1, "Test Title", "Test Body", "Test Body", null);
     when(repository.save(updated)).thenReturn(updated);
 
 
-    mockMvc.perform(put("/api/awards/999")
+    mockMvc.perform(put("/api/users/999")
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(updated)))
         .andExpect(status().isNotFound());
@@ -195,10 +195,10 @@ class AwardControllerTest {
    * @throws Exception Example
    */
   @Test
-  void shouldDeleteAwardWhenGivenValidId() throws Exception {
+  void shouldDeleteUserWhenGivenValidId() throws Exception {
     doNothing().when(repository).deleteById(1);
 
-    mockMvc.perform(delete("/api/awards/1"))
+    mockMvc.perform(delete("/api/users/1"))
         .andExpect(status().isNoContent());
 
     verify(repository, times(1)).deleteById(1);

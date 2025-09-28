@@ -1,4 +1,4 @@
-package com.coderdojo.zen.dojo;
+package com.coderdojo.zen.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,7 +24,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
-class DojoControllerIntTest {
+class UserControllerIntTest {
 
   /**
    * Javadoc.
@@ -43,7 +43,7 @@ class DojoControllerIntTest {
    * Sole constructor. (For invocation by subclass
    * constructors, typically implicit.)
    */
-  DojoControllerIntTest() { /* Default Constructor */
+  UserControllerIntTest() { /* Default Constructor */
   }
 
   /**
@@ -59,18 +59,18 @@ class DojoControllerIntTest {
    * Javadoc.
    */
   @Test
-  void shouldFindAllDojos() {
-    Dojo[] dojos = restTemplate.getForObject("/api/dojos", Dojo[].class);
-    assertThat(dojos).hasSizeGreaterThan(7);
+  void shouldFindAllUsers() {
+    User[] users = restTemplate.getForObject("/api/users", User[].class);
+    assertThat(users).hasSizeGreaterThan(7);
   }
 
   /**
    * Javadoc.
    */
   @Test
-  void shouldFindDojoWhenValidDojoId() {
-    ResponseEntity<Dojo> response =
-        restTemplate.exchange("/api/dojos/1", HttpMethod.GET, null, Dojo.class);
+  void shouldFindUserWhenValidUserId() {
+    ResponseEntity<User> response =
+        restTemplate.exchange("/api/users/1", HttpMethod.GET, null, User.class);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
   }
@@ -79,9 +79,9 @@ class DojoControllerIntTest {
    * Javadoc.
    */
   @Test
-  void shouldThrowNotFoundWhenInvalidDojoId() {
-    ResponseEntity<Dojo> response =
-        restTemplate.exchange("/api/dojos/999", HttpMethod.GET, null, Dojo.class);
+  void shouldThrowNotFoundWhenInvalidUserId() {
+    ResponseEntity<User> response =
+        restTemplate.exchange("/api/users/999", HttpMethod.GET, null, User.class);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
   }
 
@@ -90,11 +90,11 @@ class DojoControllerIntTest {
    */
   @Test
   @Rollback
-  void shouldCreateNewDojoWhenDojoIsValid() {
-    Dojo dojo = new Dojo(9, "Test Name", "Test Description", "Test Image", null);
+  void shouldCreateNewUserWhenUserIsValid() {
+    User user = new User(9, "Test Name", "Test Description", "Test Image", null);
 
-    ResponseEntity<Dojo> response =
-        restTemplate.exchange("/api/dojos", HttpMethod.POST, new HttpEntity<>(dojo), Dojo.class);
+    ResponseEntity<User> response =
+        restTemplate.exchange("/api/users", HttpMethod.POST, new HttpEntity<>(user), User.class);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     assertThat(response.getBody()).isNotNull();
     assertThat(Objects.requireNonNull(response.getBody()).id()).isEqualTo(9);
@@ -107,10 +107,10 @@ class DojoControllerIntTest {
    * Javadoc.
    */
   @Test
-  void shouldNotCreateNewDojoWhenValidationFails() {
-    Dojo dojo = new Dojo(9, "Test Title", "Test Body", "", null);
-    ResponseEntity<Dojo> response =
-        restTemplate.exchange("/api/dojos", HttpMethod.POST, new HttpEntity<>(dojo), Dojo.class);
+  void shouldNotCreateNewUserWhenValidationFails() {
+    User user = new User(9, "Test Title", "Test Body", "", null);
+    ResponseEntity<User> response =
+        restTemplate.exchange("/api/users", HttpMethod.POST, new HttpEntity<>(user), User.class);
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
   }
@@ -120,15 +120,15 @@ class DojoControllerIntTest {
    */
   @Test
   @Rollback
-  void shouldUpdateDojoWhenDojoIsValid() {
-    ResponseEntity<Dojo> response =
-        restTemplate.exchange("/api/dojos/8", HttpMethod.GET, null, Dojo.class);
+  void shouldUpdateUserWhenUserIsValid() {
+    ResponseEntity<User> response =
+        restTemplate.exchange("/api/users/8", HttpMethod.GET, null, User.class);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    Dojo existing = response.getBody();
+    User existing = response.getBody();
     assertThat(existing).isNotNull();
-    Dojo updated =
-        new Dojo(existing.id(), existing.name(), "NEW POST TITLE #1", "NEW POST BODY #1",
+    User updated =
+        new User(existing.id(), existing.name(), "NEW POST TITLE #1", "NEW POST BODY #1",
             existing.version());
 
     assertThat(updated.id()).isEqualTo(8);
@@ -144,7 +144,7 @@ class DojoControllerIntTest {
   @Rollback
   void shouldDeleteWithValidId() {
     ResponseEntity<Void> response =
-        restTemplate.exchange("/api/dojos/88", HttpMethod.DELETE, null, Void.class);
+        restTemplate.exchange("/api/users/88", HttpMethod.DELETE, null, Void.class);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
   }
 
