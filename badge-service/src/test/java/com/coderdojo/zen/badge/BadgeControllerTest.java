@@ -1,6 +1,22 @@
 package com.coderdojo.zen.badge;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -12,40 +28,30 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
 /**
- * Javadoc
+ * Javadoc.
  */
 @WebMvcTest(BadgeController.class)
 @AutoConfigureMockMvc
 class BadgeControllerTest {
 
   /**
-   * Javadoc
+   * Javadoc.
    */
   @Autowired
   MockMvc mockMvc;
 
   /**
-   * Javadoc
+   * Javadoc.
    */
   @MockitoBean
   BadgeRepository repository;
   /**
-   * Javadoc
+   * Javadoc.
    */
   List<Badge> badges = new ArrayList<>();
   /**
-   * Javadoc
+   * Javadoc.
    */
   @Autowired
   private ObjectMapper objectMapper;
@@ -54,10 +60,11 @@ class BadgeControllerTest {
    * Sole constructor. (For invocation by subclass
    * constructors, typically implicit.)
    */
-  BadgeControllerTest() { /* Default Constructor */ }
+  BadgeControllerTest() { /* Default Constructor */
+  }
 
   /**
-   * Javadoc
+   * Javadoc.
    */
   @BeforeEach
   void setUp() {
@@ -68,7 +75,7 @@ class BadgeControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
@@ -105,7 +112,7 @@ class BadgeControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
@@ -126,12 +133,12 @@ class BadgeControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
   @Test
-  void shouldCreateNewBadgeWhenGivenValidID() throws Exception {
+  void shouldCreateNewBadgeWhenGivenValidId() throws Exception {
     Badge badge = new Badge(1, "Test Title", "Test Body", "Test Body", null);
     when(repository.save(badge)).thenReturn(badge);
 
@@ -148,14 +155,14 @@ class BadgeControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
   @Test
   void shouldUpdateBadgeWhenGivenValidBadge() throws Exception {
     Badge updated = new Badge(1, "Test Title", "Test Body", "Test Body", null);
-    when(repository.findById(1)).thenReturn(Optional.of(badges.get(0)));
+    when(repository.findById(1)).thenReturn(Optional.of(badges.getFirst()));
     when(repository.save(updated)).thenReturn(updated);
 
 
@@ -166,12 +173,12 @@ class BadgeControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
   @Test
-  void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidBadgeID() throws Exception {
+  void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidBadgeId() throws Exception {
     Badge updated = new Badge(1, "Test Title", "Test Body", "Test Body", null);
     when(repository.save(updated)).thenReturn(updated);
 
@@ -183,12 +190,12 @@ class BadgeControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
   @Test
-  void shouldDeleteBadgeWhenGivenValidID() throws Exception {
+  void shouldDeleteBadgeWhenGivenValidId() throws Exception {
     doNothing().when(repository).deleteById(1);
 
     mockMvc.perform(delete("/api/badges/1"))

@@ -1,6 +1,22 @@
 package com.coderdojo.zen.award;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -12,40 +28,30 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
 /**
- * Javadoc
+ * Javadoc.
  */
 @WebMvcTest(AwardController.class)
 @AutoConfigureMockMvc
 class AwardControllerTest {
 
   /**
-   * Javadoc
+   * Javadoc.
    */
   @Autowired
   MockMvc mockMvc;
 
   /**
-   * Javadoc
+   * Javadoc.
    */
   @MockitoBean
   AwardRepository repository;
   /**
-   * Javadoc
+   * Javadoc.
    */
   List<Award> awards = new ArrayList<>();
   /**
-   * Javadoc
+   * Javadoc.
    */
   @Autowired
   private ObjectMapper objectMapper;
@@ -54,11 +60,11 @@ class AwardControllerTest {
    * Sole constructor. (For invocation by subclass
    * constructors, typically implicit.)
    */
-  AwardControllerTest() {
+  AwardControllerTest() { /* Default Constructor */
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    */
   @BeforeEach
   void setUp() {
@@ -69,7 +75,7 @@ class AwardControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
@@ -106,7 +112,7 @@ class AwardControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
@@ -127,12 +133,12 @@ class AwardControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
   @Test
-  void shouldCreateNewAwardWhenGivenValidID() throws Exception {
+  void shouldCreateNewAwardWhenGivenValidId() throws Exception {
     Award award = new Award(1, "Test Title", "Test Body", "Test Body", null);
     when(repository.save(award)).thenReturn(award);
 
@@ -149,7 +155,7 @@ class AwardControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
@@ -167,12 +173,12 @@ class AwardControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
   @Test
-  void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidAwardID() throws Exception {
+  void shouldNotUpdateAndThrowNotFoundWhenGivenAnInvalidAwardId() throws Exception {
     Award updated = new Award(1, "Test Title", "Test Body", "Test Body", null);
     when(repository.save(updated)).thenReturn(updated);
 
@@ -184,12 +190,12 @@ class AwardControllerTest {
   }
 
   /**
-   * Javadoc
+   * Javadoc.
    *
    * @throws Exception Example
    */
   @Test
-  void shouldDeleteAwardWhenGivenValidID() throws Exception {
+  void shouldDeleteAwardWhenGivenValidId() throws Exception {
     doNothing().when(repository).deleteById(1);
 
     mockMvc.perform(delete("/api/awards/1"))

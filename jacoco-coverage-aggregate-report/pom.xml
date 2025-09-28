@@ -19,6 +19,11 @@
   <dependencies>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
+      <artifactId>authorization-service</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.coderdojo.zen</groupId>
       <artifactId>award-service</artifactId>
       <version>1.0.1</version>
     </dependency>
@@ -34,12 +39,32 @@
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
+      <artifactId>config-service</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.coderdojo.zen</groupId>
+      <artifactId>discovery-service</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.coderdojo.zen</groupId>
       <artifactId>dojo-service</artifactId>
       <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>event-service</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.coderdojo.zen</groupId>
+      <artifactId>gateway-service</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.coderdojo.zen</groupId>
+      <artifactId>user-service</artifactId>
       <version>1.0.1</version>
     </dependency>
   </dependencies>
