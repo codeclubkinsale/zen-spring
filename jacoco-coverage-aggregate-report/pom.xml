@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.coderdojo</groupId>
     <artifactId>zen</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
   </parent>
   <groupId>com.coderdojo.zen</groupId>
   <artifactId>jacoco-coverage-aggregate-report</artifactId>
@@ -20,52 +20,52 @@
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>authorization-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>award-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>badge-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>belt-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>config-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>discovery-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>dojo-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>event-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>gateway-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.coderdojo.zen</groupId>
       <artifactId>user-service</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
   </dependencies>
 
@@ -95,7 +95,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.11</version>
+        <version>0.8.14</version>
         <executions>
           <execution>
             <phase>verify</phase>

@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.coderdojo</groupId>
     <artifactId>zen</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
   </parent>
   <groupId>com.coderdojo.zen</groupId>
   <artifactId>authorization-service</artifactId>
@@ -34,8 +34,8 @@
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
       <exclusions>
         <exclusion>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>httpclient</artifactId>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
         </exclusion>
         <exclusion>
           <groupId>com.google.guava</groupId>
@@ -44,6 +44,10 @@
         <exclusion>
           <groupId>com.thoughtworks.xstream</groupId>
           <artifactId>xstream</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -55,7 +59,7 @@
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-oauth2-authorization-server</artifactId>
-      <version>1.5.2</version>
+      <version>1.5.3</version>
       <exclusions>
         <exclusion>
           <groupId>com.nimbusds</groupId>
@@ -67,7 +71,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.18.0</version>
+      <version>3.19.0</version>
     </dependency>
     <dependency>
       <groupId>com.thoughtworks.xstream</groupId>
@@ -77,17 +81,17 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>4.5.13</version>
+      <version>4.5.14</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>32.0.0-jre</version>
+      <version>33.5.0-jre</version>
     </dependency>
     <dependency>
       <groupId>com.nimbusds</groupId>
       <artifactId>nimbus-jose-jwt</artifactId>
-      <version>10.0.2</version>
+      <version>10.5</version>
     </dependency>
     <!--End Vulnerability Upgrades-->
   </dependencies>
