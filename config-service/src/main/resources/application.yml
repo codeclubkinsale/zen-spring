@@ -5,4 +5,4 @@ spring:
     config:
       server:
         git:
-          uri: ${HOME}/developer/zen-config
+          uri: ${HOME}/Developer/zen-config
