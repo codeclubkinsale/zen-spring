@@ -6,12 +6,12 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.7</version>
+    <version>3.5.14</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.coderdojo</groupId>
   <artifactId>zen</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <packaging>pom</packaging>
   <modules>
     <module>authorization-service</module>
@@ -47,12 +47,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
-    <dependency>
-      <groupId>com.jayway.jsonpath</groupId>
-      <artifactId>json-path</artifactId>
-      <version>2.10.0</version>
-    </dependency>
   </dependencies>
 
   <dependencyManagement>
@@ -60,7 +54,7 @@
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <version>2025.0.0</version>
+        <version>2025.0.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -72,7 +66,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.5.4</version>
+        <version>3.5.5</version>
         <executions>
           <execution>
             <goals>
@@ -111,7 +105,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.4</version>
+        <version>3.5.5</version>
         <configuration>
           <!--suppress UnresolvedMavenProperty -->
           <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
@@ -138,7 +132,7 @@
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-        <version>1.21.0</version>
+        <version>1.23.1</version>
       </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -147,7 +141,7 @@
       <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
-        <version>5.2.0.4988</version>
+        <version>5.6.0.6792</version>
       </plugin>
     </plugins>
   </build>
@@ -157,7 +151,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.9.8.1</version>
+        <version>4.9.8.3</version>
         <configuration>
           <plugins>
             <plugin>
@@ -202,7 +196,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>3.5.4</version>
+        <version>3.5.5</version>
       </plugin>
     </plugins>
   </reporting>
